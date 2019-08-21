@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public BranchOffice Get(string id)
+        public List<BranchOffice> Get(string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -44,12 +44,12 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                BranchOffice BranchOffices = new BranchOffice();
+                List<BranchOffice> BranchOffices = new List<BranchOffice>();
                 while (x < list.BranchOffices.Count)
                 {
-                    if (string.Equals(list.BranchOffices[x].ID, id))
+                    if (string.Equals(list.BranchOffices[x].Name, name))
                     {
-                        BranchOffices = list.BranchOffices[x];
+                        BranchOffices.Add(list.BranchOffices[x]);
                     }
                     x++;
                 }
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public void Post(string branch, string address, string phone, string administrator)
+        public void Post(string name, string address, string phone, string administrator)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -67,13 +67,13 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                BranchOffice BranchOffices = new BranchOffice();
-                Random rnd = new Random();
-                BranchOffices.ID = rnd.Next(0, 9999).ToString();
-                BranchOffices.Branch = branch;
-                BranchOffices.Address = address;
-                BranchOffices.Phone = phone;
-                BranchOffices.Administrator = administrator;
+                BranchOffice BranchOffices = new BranchOffice
+                {
+                    Name = name,
+                    Address = address,
+                    Phone = phone,
+                    Administrator = administrator
+                };
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
@@ -108,7 +108,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string branch, string address, string phone, string administrator)
+        public void Put(string name, string address, string phone, string administrator)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -121,9 +121,9 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.BranchOffices.Count)
                 {
-                    if (string.Equals(list.BranchOffices[x].ID, id))
+                    if (string.Equals(list.BranchOffices[x].Name, name))
                     {
-                        list.BranchOffices[x].Branch = branch;
+                        list.BranchOffices[x].Name = name;
                         list.BranchOffices[x].Address = address;
                         list.BranchOffices[x].Phone = phone;
                         list.BranchOffices[x].Administrator = administrator;
@@ -160,7 +160,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -173,7 +173,7 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.BranchOffices.Count)
                 {
-                    if (string.Equals(list.BranchOffices[x].ID, id))
+                    if (string.Equals(list.BranchOffices[x].Name, name))
                     {
                         list.BranchOffices.RemoveAt(x);
                     }

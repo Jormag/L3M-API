@@ -34,7 +34,7 @@ namespace WebApi.Controllers
         }
         
         [HttpGet]
-        public Product Get(string name)
+        public List<Product> Get(string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -45,22 +45,22 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Product product = new Product();
+                List<Product> products = new List<Product>();
                 while (x < list.Products.Count)
                 {
                     if (string.Equals(list.Products[x].Name, name)) 
                     {
-                        product = list.Products[x];
+                        products.Add(list.Products[x]);
                     }
                     x++;
                 }
                 
-                return product;
+                return products;
             }
         }
 
         [HttpPost]
-        public void Post(string name, int price, string description, string provider, int tax, int discount)
+        public void Post(string barcode, string name, int price, string description, string provider, int tax, int discount)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -68,16 +68,16 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                
-                Product product = new Product();
-                Random rnd = new Random();
-                product.ID = rnd.Next(0, 9999).ToString();
-                product.Name = name;
-                product.Price = price;
-                product.Description = description;
-                product.Provider = provider;
-                product.Tax = tax;
-                product.Discount = discount;
+                Product product = new Product
+                {
+                    Barcode = barcode,
+                    Name = name,
+                    Price = price,
+                    Description = description,
+                    Supplier = provider,
+                    Tax = tax,
+                    Discount = discount
+                };
 
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
@@ -113,7 +113,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string name, int price, string description, string provider, int tax, int discount)
+        public void Put(string barcode, string name, int price, string description, string provider, int tax, int discount)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -126,12 +126,13 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Products.Count)
                 {
-                    if (string.Equals(list.Products[x].ID, id))
+                    if (string.Equals(list.Products[x].Barcode, barcode)&& string.Equals(list.Products[x].Name,name))
                     {
+                        list.Products[x].Barcode = barcode;
                         list.Products[x].Name = name;
                         list.Products[x].Price = price;
                         list.Products[x].Description = description;
-                        list.Products[x].Provider = provider;
+                        list.Products[x].Supplier = provider;
                         list.Products[x].Tax = tax;
                         list.Products[x].Discount = discount;
                     }
@@ -167,7 +168,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string barcode, string name)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
@@ -176,7 +177,7 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Products.Count)
                 {
-                    if (string.Equals(list.Products[x].ID, id))
+                    if (string.Equals(list.Products[x].Barcode, barcode) && string.Equals(list.Products[x].Name, name))
                     {
                         list.Products.RemoveAt(x);
                     }

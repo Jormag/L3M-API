@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
 
         [HttpGet]
-        public List<Suppliers> Get()
+        public List<Supplier> Get()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Suppliers Get(string id)
+        public Supplier Get(string identificationCard)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -44,10 +44,10 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Suppliers Suppliers = new Suppliers();
+                Supplier Suppliers = new Supplier();
                 while (x < list.Suppliers.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.Suppliers[x].IdentificationCard, identificationCard))
                     {
                         Suppliers = list.Suppliers[x];
                     }
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public void Post(string supplier, string identificationCard)
+        public void Post(string identificationCard, string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -67,11 +67,11 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                Suppliers Suppliers = new Suppliers();
-                Random rnd = new Random();
-                Suppliers.ID = rnd.Next(0, 9999).ToString();
-                Suppliers.Supplier = supplier;
-                Suppliers.IdentificationCard = identificationCard;
+                Supplier Suppliers = new Supplier
+                {
+                    IdentificationCard = identificationCard,
+                    Name = name
+                };
 
 
                 var jsonOld = jsonStream.ReadToEnd();
@@ -107,7 +107,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string supplier, string identificationCard)
+        public void Put(string identificationCard, string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -120,11 +120,10 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Suppliers.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.Suppliers[x].IdentificationCard, identificationCard))
                     {
-                        list.Suppliers[x].Supplier = supplier;
                         list.Suppliers[x].IdentificationCard = identificationCard;
-
+                        list.Suppliers[x].Name = name;
                     }
                     x++;
                 }
@@ -158,7 +157,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string identificationCard)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -171,7 +170,7 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Suppliers.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.Suppliers[x].IdentificationCard, identificationCard))
                     {
                         list.Suppliers.RemoveAt(x);
                     }

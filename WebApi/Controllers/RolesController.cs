@@ -13,12 +13,12 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
-    public class WorkRolesController : ApiController
+    public class RolesController : ApiController
     {
         readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
 
         [HttpGet]
-        public List<WorkRol> Get()
+        public List<Rol> Get()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -28,12 +28,12 @@ namespace WebApi.Controllers
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
-                return list.WorkRoles;
+                return list.Roles;
             }
         }
 
         [HttpGet]
-        public WorkRol Get(string id)
+        public List<Rol> Get(string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -44,22 +44,22 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                WorkRol workrol = new WorkRol();
-                while (x < list.WorkRoles.Count)
+                List<Rol> rol = new List<Rol>();
+                while (x < list.Roles.Count)
                 {
-                    if (string.Equals(list.WorkRoles[x].ID, id))
+                    if (string.Equals(list.Roles[x].Name, name))
                     {
-                        workrol = list.WorkRoles[x];
+                        rol.Add(list.Roles[x]);
                     }
                     x++;
                 }
 
-                return workrol;
+                return rol;
             }
         }
 
         [HttpPost]
-        public void Post(string name, string firstLastName, string secondLastName, string rol)
+        public void Post(string name, string description)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -67,17 +67,15 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                WorkRol purchase = new WorkRol();
-                Random rnd = new Random();
-                purchase.ID = rnd.Next(0, 9999).ToString();
-                purchase.Name = name;
-                purchase.FirstLastName = firstLastName;
-                purchase.SecondLastName = secondLastName;
-                purchase.Rol = rol;
+                Rol rol = new Rol
+                {
+                    Name = name,
+                    Description = description
+                };
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.WorkRoles.Add(purchase);
+                list.Roles.Add(rol);
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -108,7 +106,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string name, string firstLastName, string secondLastName, string rol)
+        public void Put(string name, string description)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -119,14 +117,12 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.WorkRoles.Count)
+                while (x < list.Roles.Count)
                 {
-                    if (string.Equals(list.WorkRoles[x].ID, id))
+                    if (string.Equals(list.Roles[x].Name, name))
                     {
-                        list.WorkRoles[x].Name = name;
-                        list.WorkRoles[x].FirstLastName = firstLastName;
-                        list.WorkRoles[x].SecondLastName = secondLastName;
-                        list.WorkRoles[x].Rol = rol;
+                        list.Roles[x].Name = name;
+                        list.Roles[x].Description = description;
                     }
                     x++;
                 }
@@ -160,7 +156,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string name, string description)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -171,11 +167,11 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.WorkRoles.Count)
+                while (x < list.Roles.Count)
                 {
-                    if (string.Equals(list.WorkRoles[x].ID, id))
+                    if (string.Equals(list.Roles[x].Name, name) && string.Equals(list.Roles[x].Description, description))
                     {
-                        list.WorkRoles.RemoveAt(x);
+                        list.Roles.RemoveAt(x);
                     }
                     x++;
                 }

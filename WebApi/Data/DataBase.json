@@ -1,1 +1,266 @@
-{"Products":[{"ID":"1020","Name":"Jet","Price":600,"Description":"Es una Jet","Provider":"Coca Coca Corp","Tax":0,"Discount":0},{"ID":"1030","Name":"Coca Cola","Price":1000,"Description":"D","Provider":"Coca Cola Corp","Tax":0,"Discount":0},{"ID":"7142","Name":"Fanta","Price":500,"Description":"D","Provider":"Coca Cola Corp","Tax":0,"Discount":0},{"ID":"1313","Name":"Coca Cola","Price":1000,"Description":"D","Provider":"Coca Cola Corp","Tax":0,"Discount":0}],"Purchases":[{"ID":"0001","Description":"Venta de arroz","RealDatePurchase":"11/09/2018","RegistrationDatePurchase":"15/10/2018","Provider":"Tio Pelon","PurchaseImage":"1","PurchaseRegistrationBranch":"Sucursal Maria A"},{"ID":"0002","Description":"Venta de frijoles","RealDatePurchase":"12/09/2018","RegistrationDatePurchase":"15/09/2018","Provider":"Tio Pelon","PurchaseImage":"2","PurchaseRegistrationBranch":"Sucursal Maria A"}],"WorkRoles":[{"ID":"0002","Name":"Juliana","FirstLastName":"N","SecondLastName":"M","Rol":"Cajero"},{"ID":"5361","Name":"Fabian","FirstLastName":"A","SecondLastName":"B","Rol":"Cajero"}],"WorkingHours":[{"ID":"2","Name":"Carlos","FirstLastName":null,"SecondLastName":null,"WeeklyHours":"45","ExtraHours":"17"},{"ID":"3290","Name":"Juliana","FirstLastName":"A","SecondLastName":"B","WeeklyHours":"50","ExtraHours":"10"}],"BranchOffices":[{"ID":"1","Branch":"Maria C","Address":"Valverde","Phone":"78945213","Administrator":"Juanito Mora"},{"ID":"2","Branch":"Maria B","Address":"San Pedro de Montes de Oca","Phone":"98234610","Administrator":"Susana Oria"}],"Workers":[{"ID":"1","Name":"Maria ","Surname":"Valverde","SecondSurname":null,"IdentifactionCard":null,"BirthDate":"11/09/1995","AdmissionDate":"20/06/2015","BranchOffice":"Maria A","HourlyWage":"5500"},{"ID":"2","Name":"Alejandro ","Surname":"Navarro","SecondSurname":null,"IdentifactionCard":null,"BirthDate":"31/12/1978","AdmissionDate":"11/08/2012","BranchOffice":"Maria C","HourlyWage":"4500"}],"Suppliers":[{"ID":"1","Supplier":"Dos Pinos","IdentificationCard":"183KL"},{"ID":"2","Supplier":"Pastas Roma","IdentificationCard":"783PR"}],"ExpenseBranches":[{"ID":"1","Date":"06/05/2019","Suppliers":"Super Perro","Description":"Proveedor de alimentos de perro","Payment":"10298530"},{"ID":"20","Date":"11/06/2019","Suppliers":"Dos Pinos","Description":"Proveedor de lacteos","Payment":"125000"}],"ProductLists":[{"ID":"1","Product":"Leche Pinito","CostProduct":"2500","Existence":"Si"},{"ID":"2","Product":"Natilla Dos Pinos","CostProduct":"1000","Existence":"No"}],"ProductBranches":[{"ID":"1","Product":"Leche Pinito","Description":"Leche en polvo","CostProduct":"2500","Existence":"si"},{"ID":"2","Product":"Natilla Dos Pinos","Description":"Producto lacteo","CostProduct":"1000","Existence":"no"}]}
+{
+  "Roles": [
+    {
+      "Name": "Administrador",
+      "Description": "Maneja informacion confidencial"
+    },
+    {
+      "Name": "Cajero",
+      "Description": "Atiende a los clientes"
+    },
+    {
+      "Name": "Mantenimiento",
+      "Description": "Encargado de organizar los inventarios"
+    }
+  ],
+  "BranchOffices": [
+    {
+      "Name": "Maria A",
+      "Address": "Cartago",
+      "Phone": "78945213",
+      "Administrator": "Juanito Mora Sanchez"
+    },
+    {
+      "Name": "Maria B",
+      "Address": "San Pedro de Montes de Oca",
+      "Phone": "98234610",
+      "Administrator": "Susana Campos Montero"
+    },
+    {
+      "Name": "Maria C",
+      "Address": "San Carlos",
+      "Phone": "24607070",
+      "Administrator": "Fernando Hidalgo Quesada"
+    }
+  ],
+  "Workers": [
+    {
+      "IdentifactionCard": "505320145",
+      "Name": "Juanito Mora Sanchez",
+      "BirthDate": "11/09/1990",
+      "AdmissionDate": "20/06/2015",
+      "BranchOffice": "Maria A",
+      "HourlyWage": 5500,
+      "Rol": "Administrador"
+    },
+    {
+      "IdentifactionCard": "404320185",
+      "Name": "Susana Campos Montero",
+      "BirthDate": "22/07/1991",
+      "AdmissionDate": "20/06/2015",
+      "BranchOffice": "Maria B",
+      "HourlyWage": 5500,
+      "Rol": "Administrador"
+    },
+    {
+      "IdentifactionCard": "204551123",
+      "Name": "Fernando Hidalgo Quesada",
+      "BirthDate": "1/01/1989",
+      "AdmissionDate": "20/06/2015",
+      "BranchOffice": "Maria C",
+      "HourlyWage": 5500,
+      "Rol": "Administrador"
+    },
+    {
+      "IdentifactionCard": "406310253",
+      "Name": "Juan Castro Rojas",
+      "BirthDate": "9/09/1997",
+      "AdmissionDate": "20/06/2015",
+      "BranchOffice": "Maria A",
+      "HourlyWage": 3000,
+      "Rol": "Cajero"
+    },
+    {
+      "IdentifactionCard": "706310253",
+      "Name": "Sandra Castro Hernandez",
+      "BirthDate": "7/011/1997",
+      "AdmissionDate": "20/06/2015",
+      "BranchOffice": "Maria B",
+      "HourlyWage": 3000,
+      "Rol": "Cajero"
+    },
+    {
+      "IdentifactionCard": "506050253",
+      "Name": "Jose Castro Rojas",
+      "BirthDate": "11/11/1996",
+      "AdmissionDate": "20/06/2015",
+      "BranchOffice": "Maria C",
+      "HourlyWage": 3000,
+      "Rol": "Cajero"
+    },
+  ],
+  "HourRecords": [
+    {
+      "Name": "Juanito Mora Sanchez",
+      "WeekBeginning": "22/06/2015",
+      "WeekEnd": "27/06/2015",
+      "WorkedHours": 48
+    },
+    {
+      "Name": "Susana Campos Montero",
+      "WeekBeginning": "22/06/2015",
+      "WeekEnd": "27/06/2015",
+      "WorkedHours": 50
+    },
+    {
+      "Name": "Fernando Hidalgo Quesada",
+      "WeekBeginning": "22/06/2015",
+      "WeekEnd": "27/06/2015",
+      "WorkedHours": 51
+    },
+    {
+      "Name": "Juan Castro Rojas",
+      "WeekBeginning": "22/06/2015",
+      "WeekEnd": "27/06/2015",
+      "WorkedHours": 55
+    },
+    {
+      "Name": "Sandra Castro Hernandez",
+      "WeekBeginning": "22/06/2015",
+      "WeekEnd": "27/06/2015",
+      "WorkedHours": 50
+    },
+    {
+      "Name": "Jose Castro Rojas",
+      "WeekBeginning": "22/06/2015",
+      "WeekEnd": "27/06/2015",
+      "WorkedHours": 53
+    }
+  ],
+  "Suppliers": [
+    {
+      "IdentificationCard": "183KL",
+      "Name": "Jet Costa Rica"
+    },
+    {
+      "IdentificationCard": "783PR",
+      "Name": "Coca Coca CR"
+    },
+    {
+      "IdentificationCard": "888TP",
+      "Name": "Tropical"
+    }
+  ],
+  "Products": [
+    {
+      "Barcode": "1020",
+      "Name": "Jet",
+      "Description": "Envase de 600 mL",
+      "Price": 600,
+      "Supplier": "Jet Costa Rica",
+      "Tax": 0,
+      "Discount": 0
+    },
+    {
+      "Barcode": "2020",
+      "Name": "Coca Cola",
+      "Description": "Envase de 3L",
+      "Price": 1800,
+      "Supplier": "Coca Coca CR",
+      "Tax": 0,
+      "Discount": 0
+    },
+    {
+      "Barcode": "5090",
+      "Name": "Te Blanco Tropical",
+      "Description": "Tropical",
+      "Tax": 0,
+      "Discount": 0
+    },
+    {
+      "Barcode": "1000",
+      "Name": "Coca Cola",
+      "Description": "Envase de 1L",
+      "Price": 600,
+      "Supplier": "Coca Coca CR",
+      "Tax": 0,
+      "Discount": 0
+    }
+  ],
+  "Purchases": [
+    {
+      "ID": "0001",
+      "Description": "Compra de Bebidas Jet",
+      "RealDate": "11/09/2018",
+      "RegistrationDate": "15/10/2018",
+      "Supplier": "Jet Costa Rica",
+      "Image": "image1",
+      "BranchOffice": "Sucursal Maria A"
+    },
+    {
+      "ID": "0002",
+      "Description": "Compra de Bebidas Coca Cola de 3L",
+      "RealDate": "12/09/2018",
+      "RegistrationDate": "15/09/2018",
+      "Supplier": "Coca Cola CR",
+      "Image": "2",
+      "BranchOffice": "Sucursal Maria A"
+    }
+  ],
+  "BranchInventories": [
+    {
+      "Barcode": "1020",
+      "Name": "Jet",
+      "Description": "Envase de 600 mL",
+      "BranchPrice": 700,
+      "Stock": 10,
+      "BranchOffice": "Maria A"
+    },
+    {
+      "Barcode": "1020",
+      "Name": "Jet",
+      "Description": "Envase de 600 mL",
+      "BranchPrice": 800,
+      "Stock": 5,
+      "BranchOffice": "Maria B"
+    },
+    {
+      "Barcode": "1020",
+      "Name": "Jet",
+      "Description": "Envase de 600 mL",
+      "BranchPrice": 650,
+      "Stock": 10,
+      "BranchOffice": "Maria C"
+    },
+    {
+      "Barcode": "2020",
+      "Name": "Coca Cola",
+      "Description": "Envase de 3L",
+      "BranchPrice": 1800,
+      "Stock": 10,
+      "BranchOffice": "Maria A"
+    },
+    {
+      "Barcode": "2020",
+      "Name": "Coca Cola",
+      "Description": "Envase de 3L",
+      "BranchPrice": 2000,
+      "Stock": 10
+      "BranchOffice": "Maria B",
+    },
+    {
+      "Barcode": "2020",
+      "Name": "Coca Cola",
+      "Description": "Envase de 3L",
+      "BranchPrice": 1900,
+      "Stock": 10,
+      "BranchOffice": "Maria C"
+    },
+    {
+      "Barcode": "5090",
+      "Name": "Te Blanco Tropical",
+      "Description": "Envase de 3L",
+      "BranchPrice": 800,
+      "Stock": 10
+      "BranchOffice": "Maria A",
+    },
+    {
+      "Barcode": "1000",
+      "Name": "Coca Cola",
+      "Description": "Envase de 1L",
+      "BranchPrice": 700,
+      "Stock": 10,
+      "BranchOffice": "Maria B"
+    }
+  ]
+}

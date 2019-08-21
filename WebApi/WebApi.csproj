@@ -156,30 +156,26 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\BranchOfficesController.cs" />
-    <Compile Include="Controllers\ExpenseBranchesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProductListController.cs" />
-    <Compile Include="Controllers\ProductBranchesController.cs" />
+    <Compile Include="Controllers\BranchInventoriesController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\PurchaseController.cs" />
-    <Compile Include="Controllers\WorkRolesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\SuppliersController.cs" />
     <Compile Include="Controllers\WorkersController.cs" />
-    <Compile Include="Controllers\WorkingHoursController.cs" />
+    <Compile Include="Controllers\HourRecordsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BranchOffice.cs" />
     <Compile Include="Models\DataBaseStruct.cs" />
-    <Compile Include="Models\ExpenseBranch.cs" />
-    <Compile Include="Models\ProductList.cs" />
-    <Compile Include="Models\ProductsBranch.cs" />
+    <Compile Include="Models\BranchInventory.cs" />
     <Compile Include="Models\Purchase.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Supplier.cs" />
     <Compile Include="Models\Workers.cs" />
-    <Compile Include="Models\WorkRol.cs" />
-    <Compile Include="Models\WorkingHours.cs" />
+    <Compile Include="Models\Rol.cs" />
+    <Compile Include="Models\HourRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

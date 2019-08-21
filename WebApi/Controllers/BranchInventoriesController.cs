@@ -13,12 +13,12 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
-    public class ExpenseBranchesController : ApiController
+    public class BranchInventoriesController : ApiController
     {
         readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
 
         [HttpGet]
-        public List<ExpenseBranch> Get()
+        public List<BranchInventory> Get()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -28,12 +28,12 @@ namespace WebApi.Controllers
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
-                return list.ExpenseBranches;
+                return list.BranchInventories;
             }
         }
 
         [HttpGet]
-        public ExpenseBranch Get(string id)
+        public List<BranchInventory> Get(string branchOffice)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -44,21 +44,22 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                ExpenseBranch expenseBranch = new ExpenseBranch();
-                while (x < list.ExpenseBranches.Count)
+                List<BranchInventory> branchInventories = new List<BranchInventory>();
+                while (x < list.BranchInventories.Count)
                 {
-                    if (string.Equals(list.ExpenseBranches[x].ID, id))
+                    if (string.Equals(list.BranchInventories[x].BranchOffice, branchOffice))
                     {
-                        expenseBranch = list.ExpenseBranches[x];
+                        branchInventories.Add(list.BranchInventories[x]);
                     }
                     x++;
                 }
-                return expenseBranch;
+
+                return branchInventories;
             }
         }
 
         [HttpPost]
-        public void Post(string date, string suppliers, string description, string payment)
+        public void Post(string barcode, string name, string description, int branchPrice, int stock, string branchOffice)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -66,18 +67,20 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                ExpenseBranch expenseBranch = new ExpenseBranch();
-                Random rnd = new Random();
-                expenseBranch.ID = rnd.Next(0, 9999).ToString();
-                expenseBranch.Date = date;
-                expenseBranch.Suppliers = suppliers;
-                expenseBranch.Description = description;
-                expenseBranch.Payment = payment;
-               
+                BranchInventory branchInventory = new BranchInventory
+                {
+                    Barcode = barcode,
+                    Name = name,
+                    Description = description,
+                    BranchPrice = branchPrice,
+                    Stock = stock,
+                    BranchOffice = branchOffice
+                };
+
+
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.ExpenseBranches.Add(expenseBranch);
-
+                list.BranchInventories.Add(branchInventory);
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -108,7 +111,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string date, string suppliers, string description, string payment)
+        public void Put(string barcode, string name, string description, int branchPrice, int stock, string branchOffice)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -119,18 +122,19 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.ExpenseBranches.Count)
+                while (x < list.BranchInventories.Count)
                 {
-                    if (string.Equals(list.ExpenseBranches[x].ID, id))
+                    if (string.Equals(list.BranchInventories[x].BranchOffice, branchOffice) && string.Equals(list.BranchInventories[x].Barcode, barcode) && string.Equals(list.BranchInventories[x].Name, name))
                     {
-                        list.ExpenseBranches[x].Date = date;
-                        list.ExpenseBranches[x].Suppliers = suppliers;
-                        list.ExpenseBranches[x].Description = description;
-                        list.ExpenseBranches[x].Payment = payment;
+                        list.BranchInventories[x].Barcode = barcode;
+                        list.BranchInventories[x].Name = name;
+                        list.BranchInventories[x].Description = description;
+                        list.BranchInventories[x].BranchPrice = branchPrice;
+                        list.BranchInventories[x].Stock = stock;
+                        list.BranchInventories[x].BranchOffice = branchOffice;
                     }
                     x++;
                 }
-
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -161,7 +165,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string barcode, string name, string branchOffice)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -172,15 +176,14 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.ExpenseBranches.Count)
+                while (x < list.BranchInventories.Count)
                 {
-                    if (string.Equals(list.ExpenseBranches[x].ID, id))
+                    if (string.Equals(list.BranchInventories[x].BranchOffice, branchOffice) && string.Equals(list.BranchInventories[x].Barcode, barcode) && string.Equals(list.BranchInventories[x].Name, name))
                     {
-                        list.ExpenseBranches.RemoveAt(x);
+                        list.BranchInventories.RemoveAt(x);
                     }
                     x++;
                 }
-
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -209,5 +212,6 @@ namespace WebApi.Controllers
                 }
             }
         }
+
     }
 }

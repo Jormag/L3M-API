@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Worker Get(string id)
+        public Worker Get(string identifactionCard)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -44,22 +44,22 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Worker workers = new Worker();
+                Worker worker = new Worker();
                 while (x < list.Workers.Count)
                 {
-                    if (string.Equals(list.Workers[x].ID, id))
+                    if (string.Equals(list.Workers[x].IdentifactionCard, identifactionCard))
                     {
-                        workers = list.Workers[x];
+                        worker = list.Workers[x];
                     }
                     x++;
                 }
 
-                return workers;
+                return worker;
             }
         }
 
         [HttpPost]
-        public void Post(string name, string surname, string secondSurname, string identifactionCard, string birthDate, string admissionDate, string branchOffice, string hourlyWage)
+        public void Post(string identifactionCard, string name,  string birthDate, string admissionDate, string branchOffice, int hourlyWage, string rol)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -67,21 +67,20 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                Worker workers = new Worker();
-                Random rnd = new Random();
-                workers.ID = rnd.Next(0, 9999).ToString();
-                workers.Name = name;
-                workers.Surname = surname;
-                workers.SecondSurname = secondSurname;
-                workers.IdentifactionCard = identifactionCard;
-                workers.BirthDate = birthDate;
-                workers.AdmissionDate = admissionDate;
-                workers.BranchOffice = branchOffice;
-                workers.HourlyWage = hourlyWage;
+                Worker worker = new Worker
+                {
+                    IdentifactionCard = identifactionCard,
+                    Name = name,
+                    BirthDate = birthDate,
+                    AdmissionDate = admissionDate,
+                    BranchOffice = branchOffice,
+                    HourlyWage = hourlyWage,
+                    Rol = rol
+                };
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.Workers.Add(workers);
+                list.Workers.Add(worker);
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -112,7 +111,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string name, string surname, string secondSurname, string identifactionCard, string birthDate, string admissionDate, string branchOffice, string hourlyWage)
+        public void Put(string identifactionCard, string name, string birthDate, string admissionDate, string branchOffice, int hourlyWage, string rol)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -125,17 +124,15 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Workers.Count)
                 {
-                    if (string.Equals(list.Workers[x].ID, id))
+                    if (string.Equals(list.Workers[x].IdentifactionCard, identifactionCard))
                     {
-                        list.Workers[x].Name = name;
-                        list.Workers[x].Surname = surname;
-                        list.Workers[x].SecondSurname = secondSurname;
                         list.Workers[x].IdentifactionCard = identifactionCard;
+                        list.Workers[x].Name = name;
                         list.Workers[x].BirthDate = birthDate;
                         list.Workers[x].AdmissionDate = admissionDate;
                         list.Workers[x].BranchOffice = branchOffice;
                         list.Workers[x].HourlyWage = hourlyWage;
-
+                        list.Workers[x].Rol = rol;
                     }
                     x++;
                 }
@@ -169,7 +166,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string identifactionCard)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -182,7 +179,7 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Workers.Count)
                 {
-                    if (string.Equals(list.Workers[x].ID, id))
+                    if (string.Equals(list.Workers[x].IdentifactionCard, identifactionCard))
                     {
                         list.Workers.RemoveAt(x);
                     }

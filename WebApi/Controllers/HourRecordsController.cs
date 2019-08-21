@@ -13,12 +13,12 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
-    public class ProductBranchesController : ApiController
+    public class HourRecordsController : ApiController
     {
         readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
 
         [HttpGet]
-        public List<ProductsBranch> Get()
+        public List<HourRecord> Get()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -28,12 +28,12 @@ namespace WebApi.Controllers
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
-                return list.ProductBranches;
+                return list.HourRecords;
             }
         }
 
         [HttpGet]
-        public ProductsBranch Get(string id)
+        public List<HourRecord> Get(string name)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -44,21 +44,22 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                ProductsBranch productsBranch = new ProductsBranch();
-                while (x < list.ExpenseBranches.Count)
+                List<HourRecord> hourRecords = new List<HourRecord>();
+                while (x < list.HourRecords.Count)
                 {
-                    if (string.Equals(list.ExpenseBranches[x].ID, id))
+                    if (string.Equals(list.HourRecords[x].Name, name))
                     {
-                        productsBranch = list.ProductBranches[x];
+                        hourRecords.Add(list.HourRecords[x]);
                     }
                     x++;
                 }
-                return productsBranch;
+
+                return hourRecords;
             }
         }
 
         [HttpPost]
-        public void Post(string product, string description, string costProduct, string existence)
+        public void Post(string name, string weekBeginning, string weekEnd, int workedHours)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -66,18 +67,17 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                ProductsBranch productsBranch = new ProductsBranch();
-                Random rnd = new Random();
-                productsBranch.ID = rnd.Next(0, 9999).ToString();
-                productsBranch.Product = product;
-                productsBranch.Description = description;
-                productsBranch.CostProduct = costProduct;
-                productsBranch.Existence = existence;
+                HourRecord hourRecord = new HourRecord
+                {
+                    Name = name,
+                    WeekBeginning = weekBeginning,
+                    WeekEnd = weekEnd,
+                    WorkedHours = workedHours
+                };
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.ProductBranches.Add(productsBranch);
-
+                list.HourRecords.Add(hourRecord);
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -108,7 +108,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string product, string description, string costProduct, string existence)
+        public void Put(string name, string weekBeginning, string weekEnd, int workedHours)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -119,18 +119,17 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.ProductBranches.Count)
+                while (x < list.HourRecords.Count)
                 {
-                    if (string.Equals(list.ProductBranches[x].ID, id))
+                    if (string.Equals(list.HourRecords[x].Name, name)&& string.Equals(list.HourRecords[x].WeekBeginning, weekBeginning) && string.Equals(list.HourRecords[x].WeekEnd, weekEnd))
                     {
-                        list.ProductBranches[x].Product = product;
-                        list.ProductBranches[x].Description = description;
-                        list.ProductBranches[x].CostProduct = costProduct;
-                        list.ProductBranches[x].Existence = existence;
+                        list.HourRecords[x].Name = name;
+                        list.HourRecords[x].WeekBeginning = weekBeginning;
+                        list.HourRecords[x].WeekEnd = weekEnd;
+                        list.HourRecords[x].WorkedHours = workedHours;
                     }
                     x++;
                 }
-
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);
@@ -161,7 +160,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string name, string weekBeginning, string weekEnd)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -172,15 +171,14 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.ProductBranches.Count)
+                while (x < list.HourRecords.Count)
                 {
-                    if (string.Equals(list.ProductBranches[x].ID, id))
+                    if (string.Equals(list.HourRecords[x].Name, name) && string.Equals(list.HourRecords[x].WeekBeginning, weekBeginning) && string.Equals(list.HourRecords[x].WeekEnd, weekEnd))
                     {
-                        list.ProductBranches.RemoveAt(x);
+                        list.HourRecords.RemoveAt(x);
                     }
                     x++;
                 }
-
 
                 //Serializar el json
                 var request2 = (HttpWebRequest)WebRequest.Create(url);

@@ -58,7 +58,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public void Post(string description, string realDatePurchase, string registrationDatePurchase, string provider, string image, string purchaseRegistrationBranch)
+        public void Post(string description, string realDate, string registrationDate, string supplier, string image, string branchOffice)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -66,15 +66,18 @@ namespace WebApi.Controllers
 
             using (StreamReader jsonStream = new StreamReader(stream))
             {
-                Purchase purchase = new Purchase();
                 Random rnd = new Random();
-                purchase.ID = rnd.Next(0, 9999).ToString();
-                purchase.Description = description;
-                purchase.RealDatePurchase = realDatePurchase;
-                purchase.RegistrationDatePurchase = registrationDatePurchase;
-                purchase.Provider = provider;
-                purchase.PurchaseImage = image;
-                purchase.PurchaseRegistrationBranch = purchaseRegistrationBranch;
+                Purchase purchase = new Purchase
+                {
+
+                    ID = rnd.Next(0, 9999).ToString(),
+                    Description = description,
+                    RealDate = realDate,
+                    RegistrationDate = registrationDate,
+                    Supplier = supplier,
+                    Image = image,
+                    BranchOffice = branchOffice
+                };
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
@@ -109,7 +112,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string description, string realDatePurchase, string registrationDatePurchase, string provider, string image, string purchaseRegistrationBranch)
+        public void Put(string id, string description, string realDate, string registrationDate, string supplier, string image, string branchOffice)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -125,11 +128,11 @@ namespace WebApi.Controllers
                     if (string.Equals(list.Purchases[x].ID, id))
                     {
                         list.Purchases[x].Description = description;
-                        list.Purchases[x].RealDatePurchase = realDatePurchase;
-                        list.Purchases[x].RegistrationDatePurchase = registrationDatePurchase;
-                        list.Purchases[x].Provider = provider;
-                        list.Purchases[x].PurchaseImage = image;
-                        list.Purchases[x].PurchaseRegistrationBranch = purchaseRegistrationBranch;
+                        list.Purchases[x].RealDate = realDate;
+                        list.Purchases[x].RegistrationDate = registrationDate;
+                        list.Purchases[x].Supplier = supplier;
+                        list.Purchases[x].Image = image;
+                        list.Purchases[x].BranchOffice = branchOffice;
                     }
                     x++;
                 }
