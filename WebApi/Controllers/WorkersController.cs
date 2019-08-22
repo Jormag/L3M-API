@@ -13,15 +13,10 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
-    ///<summary>
-    ///Controlador de los trabajadores
-    ///</summary>
     public class WorkersController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
-        ///<summary>
-        ///Permite consultar la lista de trabajadores
-        ///</summary>
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+
         [HttpGet]
         public List<Worker> Get()
         {
@@ -36,12 +31,9 @@ namespace WebApi.Controllers
                 return list.Workers;
             }
         }
-        ///<summary>
-        ///Permite consultar trabajadores por numero de cedula
-        ///</summary>
-        ///<param name="identificationCard"> Numero de cedula del trabajador</param>
+
         [HttpGet]
-        public Worker Get(string identificationCard)
+        public Worker Get(string identifactionCard)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -55,7 +47,7 @@ namespace WebApi.Controllers
                 Worker worker = new Worker();
                 while (x < list.Workers.Count)
                 {
-                    if (string.Equals(list.Workers[x].IdentificationCard, identificationCard))
+                    if (string.Equals(list.Workers[x].IdentifactionCard, identifactionCard))
                     {
                         worker = list.Workers[x];
                     }
@@ -65,18 +57,9 @@ namespace WebApi.Controllers
                 return worker;
             }
         }
-        ///<summary>
-        ///Permite agregar nuevos trabajadores a la lista
-        ///</summary>
-        ///<param name="identificationCard"> Numero de cedula del trabajador</param>
-        ///<param name="name"> Nombre del trabajador</param>
-        ///<param name="birthDate"> Fecha de nacimiento del trabajador</param>
-        ///<param name="admissionDate"> Fecha de ingreso </param>
-        ///<param name="branchOffice"> Sucursar en la que trabaja</param>
-        ///<param name="hourlyWage"> Salario por hora del trabajador</param>
-        ///<param name="rol"> Rol del trabajador</param>
+
         [HttpPost]
-        public void Post(string identificationCard, string name,  string birthDate, string admissionDate, string branchOffice, int hourlyWage, string rol)
+        public void Post(string identifactionCard, string name,  string birthDate, string admissionDate, string branchOffice, int hourlyWage, string rol)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -86,7 +69,7 @@ namespace WebApi.Controllers
             {
                 Worker worker = new Worker
                 {
-                    IdentificationCard = identificationCard,
+                    IdentifactionCard = identifactionCard,
                     Name = name,
                     BirthDate = birthDate,
                     AdmissionDate = admissionDate,
@@ -126,18 +109,9 @@ namespace WebApi.Controllers
                 }
             }
         }
-        ///<summary>
-        ///Permite modificar trabajadores de la lista
-        ///</summary>
-        ///<param name="identificationCard"> Numero de cedula del trabajador</param>
-        ///<param name="name"> Nombre del trabajador</param>
-        ///<param name="birthDate"> Fecha de nacimiento del trabajador</param>
-        ///<param name="admissionDate"> Fecha de ingreso </param>
-        ///<param name="branchOffice"> Sucursar en la que trabaja</param>
-        ///<param name="hourlyWage"> Salario por hora del trabajador</param>
-        ///<param name="rol"> Rol del trabajador</param>
+
         [HttpPut]
-        public void Put(string identificationCard, string name, string birthDate, string admissionDate, string branchOffice, int hourlyWage, string rol)
+        public void Put(string identifactionCard, string name, string birthDate, string admissionDate, string branchOffice, int hourlyWage, string rol)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -150,9 +124,9 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Workers.Count)
                 {
-                    if (string.Equals(list.Workers[x].IdentificationCard, identificationCard))
+                    if (string.Equals(list.Workers[x].IdentifactionCard, identifactionCard))
                     {
-                        list.Workers[x].IdentificationCard = identificationCard;
+                        list.Workers[x].IdentifactionCard = identifactionCard;
                         list.Workers[x].Name = name;
                         list.Workers[x].BirthDate = birthDate;
                         list.Workers[x].AdmissionDate = admissionDate;
@@ -190,12 +164,9 @@ namespace WebApi.Controllers
                 }
             }
         }
-        ///<summary>
-        ///Permite eliminar trabajadores de la lista
-        ///</summary>
-        ///<param name="identificationCard"> Numero de cedula del trabajador</param>
+
         [HttpDelete]
-        public void Delete(string identificationCard)
+        public void Delete(string identifactionCard)
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
@@ -208,7 +179,7 @@ namespace WebApi.Controllers
                 int x = 0;
                 while (x < list.Workers.Count)
                 {
-                    if (string.Equals(list.Workers[x].IdentificationCard, identificationCard))
+                    if (string.Equals(list.Workers[x].IdentifactionCard, identifactionCard))
                     {
                         list.Workers.RemoveAt(x);
                     }
