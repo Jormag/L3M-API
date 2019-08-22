@@ -13,10 +13,16 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador de proveedores
+    ///</summary>
     public class SuppliersController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+        ///<summary>
+        ///Permite consultar la lista de proveedores
+        ///</summary>
         [HttpGet]
         public List<Supplier> Get()
         {
@@ -31,7 +37,10 @@ namespace WebApi.Controllers
                 return list.Suppliers;
             }
         }
-
+        ///<summary>
+        ///Permite consultar un proveedor especifico de la lista
+        ///</summary>
+        ///<param name="identificationCard"> Numero de cedula del proveedor</param>
         [HttpGet]
         public Supplier Get(string identificationCard)
         {
@@ -57,7 +66,11 @@ namespace WebApi.Controllers
                 return Suppliers;
             }
         }
-
+        ///<summary>
+        ///Permite agregar un proveedor nuevo a la lista
+        ///</summary>
+        ///<param name="identificationCard"> Numero de cedula del proveedor</param>
+        ///<param name="name"> Nombre del proveedor </param>
         [HttpPost]
         public void Post(string identificationCard, string name)
         {
@@ -105,7 +118,11 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite modificar la informacion de un proveedor de la lista
+        ///</summary>
+        ///<param name="identificationCard"> Numero de cedula del proveedor</param>
+        ///<param name="name"> Nombre del proveedor </param>
         [HttpPut]
         public void Put(string identificationCard, string name)
         {
@@ -155,7 +172,10 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar un proveedor de la lista
+        ///</summary>
+        ///<param name="identificationCard"> Numero de cedula del proveedor</param>
         [HttpDelete]
         public void Delete(string identificationCard)
         {

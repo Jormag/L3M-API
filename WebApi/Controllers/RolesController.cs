@@ -13,10 +13,16 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador de roles
+    ///</summary>
     public class RolesController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+        ///<summary>
+        ///Permite consultar la lista de roles
+        ///</summary>
         [HttpGet]
         public List<Rol> Get()
         {
@@ -31,7 +37,10 @@ namespace WebApi.Controllers
                 return list.Roles;
             }
         }
-
+        ///<summary>
+        ///Permite consultar una lista de roles especificos
+        ///</summary>
+        ///<param name="name">Nombre del rol</param>
         [HttpGet]
         public List<Rol> Get(string name)
         {
@@ -57,7 +66,11 @@ namespace WebApi.Controllers
                 return rol;
             }
         }
-
+        ///<summary>
+        ///Permite agregar un nuevo rol a la lista
+        ///</summary>
+        ///<param name="name">Nombre del rol</param>
+        ///<param name="description">Descripcion del rol</param>
         [HttpPost]
         public void Post(string name, string description)
         {
@@ -104,7 +117,11 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite modificar un rol existente en la lista
+        ///</summary>
+        ///<param name="name">Nombre del rol</param>
+        ///<param name="description">Descripcion del rol</param>
         [HttpPut]
         public void Put(string name, string description)
         {
@@ -154,7 +171,11 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar un rol de la lista
+        ///</summary>
+        ///<param name="name">Nombre del rol</param>
+        ///<param name="description">Descripcion del rol</param>
         [HttpDelete]
         public void Delete(string name, string description)
         {

@@ -13,10 +13,17 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador de la clase BranchInventory
+    ///</summary>
     public class BranchInventoriesController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+
+        ///<summary>
+        ///Muestra el listado completo del inventario para todas las sucursales
+        ///</summary>
         [HttpGet]
         public List<BranchInventory> Get()
         {
@@ -32,6 +39,10 @@ namespace WebApi.Controllers
             }
         }
 
+        ///<summary>
+        ///Muestra el listado de productos para una Sucursal especifica
+        ///</summary>
+        ///<param name="branchOffice"> Nombre de la Sucursal </param>
         [HttpGet]
         public List<BranchInventory> Get(string branchOffice)
         {
@@ -57,7 +68,15 @@ namespace WebApi.Controllers
                 return branchInventories;
             }
         }
-
+        ///<summary>
+        ///Permite Agregar nuevos productos a una sucursal
+        ///</summary>
+        ///<param name="barcode"> Codigo de barras del producto </param>
+        ///<param name="name"> Nombre del producto </param>
+        ///<param name="description"> Descripcion del producto</param>
+        ///<param name="branchPrice"> Precio en la Sucursal </param>
+        ///<param name="stock"> Existencias </param>
+        ///<param name="branchOffice"> Nombre de la Sucursal </param>
         [HttpPost]
         public void Post(string barcode, string name, string description, int branchPrice, int stock, string branchOffice)
         {
@@ -109,7 +128,15 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite modificar la informacion de los productos de una sucursal
+        ///</summary>
+        ///<param name="barcode"> Codigo de barras del producto </param>
+        ///<param name="name"> Nombre del producto </param>
+        ///<param name="description"> Descripcion del producto</param>
+        ///<param name="branchPrice"> Precio en la Sucursal </param>
+        ///<param name="stock"> Existencias </param>
+        ///<param name="branchOffice"> Nombre de la Sucursal </param>
         [HttpPut]
         public void Put(string barcode, string name, string description, int branchPrice, int stock, string branchOffice)
         {
@@ -163,7 +190,12 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar productis de una sucursal
+        ///</summary>
+        ///<param name="barcode"> Codigo de barras del producto </param>
+        ///<param name="name"> Nombre del producto </param>
+        ///<param name="branchOffice"> Nombre de la Sucursal </param>
         [HttpDelete]
         public void Delete(string barcode, string name, string branchOffice)
         {

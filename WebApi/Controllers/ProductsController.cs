@@ -13,11 +13,17 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador de los productos
+    ///</summary>
     public class ProductsController : ApiController
     {
 
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+        ///<summary>
+        ///Permite consultar un listado de productos existentes
+        ///</summary>
         [HttpGet]
         public List<Product> Get()
         {
@@ -32,7 +38,10 @@ namespace WebApi.Controllers
                 return list.Products;
             }
         }
-        
+        ///<summary>
+        ///Permite consultar un listado de productos existentes a partir del nombre
+        ///</summary>
+        ///<param name="name"> Nombre del producto </param>
         [HttpGet]
         public List<Product> Get(string name)
         {
@@ -58,7 +67,16 @@ namespace WebApi.Controllers
                 return products;
             }
         }
-
+        ///<summary>
+        ///Permite agregar productos al listado
+        ///</summary>
+        ///<param name="barcode"> Codigo de barras del producto </param>
+        ///<param name="name"> Nombre del producto </param>
+        ///<param name="price"> Precio del producto </param>
+        ///<param name="description"> Descripcion del producto </param>
+        ///<param name="provider"> Proveedor del producto </param>
+        ///<param name="tax"> Indica si el producto posee impuesto o no </param>
+        ///<param name="discount"> Indica si el producto posee descuento o no </param>
         [HttpPost]
         public void Post(string barcode, string name, int price, string description, string provider, int tax, int discount)
         {
@@ -111,7 +129,16 @@ namespace WebApi.Controllers
 
             }
         }
-
+        ///<summary>
+        ///Permite modificar productos del listado
+        ///</summary>
+        ///<param name="barcode"> Codigo de barras del producto </param>
+        ///<param name="name"> Nombre del producto </param>
+        ///<param name="price"> Precio del producto </param>
+        ///<param name="description"> Descripcion del producto </param>
+        ///<param name="provider"> Proveedor del producto </param>
+        ///<param name="tax"> Indica si el producto posee impuesto o no </param>
+        ///<param name="discount"> Indica si el producto posee descuento o no </param>
         [HttpPut]
         public void Put(string barcode, string name, int price, string description, string provider, int tax, int discount)
         {
@@ -166,7 +193,11 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar productos del listado
+        ///</summary>
+        ///<param name="barcode"> Codigo de barras del producto </param>
+        ///<param name="name"> Nombre del producto </param>
         [HttpDelete]
         public void Delete(string barcode, string name)
         {

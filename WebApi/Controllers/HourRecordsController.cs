@@ -13,10 +13,16 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador del registro de horas
+    ///</summary>
     public class HourRecordsController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+        ///<summary>
+        ///Permite consultar el listado general de registros de horas
+        ///</summary>
         [HttpGet]
         public List<HourRecord> Get()
         {
@@ -31,7 +37,10 @@ namespace WebApi.Controllers
                 return list.HourRecords;
             }
         }
-
+        ///<summary>
+        ///Permite consultar el listado  de registros de horas para un trabajador especifico
+        ///</summary>
+        ///<param name="name"> Nombre del trabajador </param>
         [HttpGet]
         public List<HourRecord> Get(string name)
         {
@@ -57,7 +66,13 @@ namespace WebApi.Controllers
                 return hourRecords;
             }
         }
-
+        ///<summary>
+        ///Permite agregar nuevos registros de horas
+        ///</summary>
+        ///<param name="name"> Nombre del trabajador</param>
+        ///<param name="weekBeginning"> Fecha de Inicio de la semana</param>
+        ///<param name="weekEnd"> Fecha de Finalizacion de la semana</param>
+        ///<param name="workedHours"> Cantidad de horas trabajadas</param>
         [HttpPost]
         public void Post(string name, string weekBeginning, string weekEnd, int workedHours)
         {
@@ -84,7 +99,6 @@ namespace WebApi.Controllers
                 request2.Method = "POST";
                 request2.ContentType = "application/json";
                 request2.Timeout = 30000;
-
                 string jsonNew = JsonConvert.SerializeObject(list);
                 byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
                 request2.ContentLength = byteArray.Length;
@@ -106,7 +120,13 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite modificar registros de horas
+        ///</summary>
+        ///<param name="name"> Nombre del trabajador</param>
+        ///<param name="weekBeginning"> Fecha de Inicio de la semana</param>
+        ///<param name="weekEnd"> Fecha de Finalizacion de la semana</param>
+        ///<param name="workedHours"> Cantidad de horas trabajadas</param>
         [HttpPut]
         public void Put(string name, string weekBeginning, string weekEnd, int workedHours)
         {
@@ -158,7 +178,12 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar registros de horas existentes
+        ///</summary>
+        ///<param name="name"> Nombre del trabajador</param>
+        ///<param name="weekBeginning"> Fecha de Inicio de la semana</param>
+        ///<param name="weekEnd"> Fecha de Finalizacion de la semana</param>
         [HttpDelete]
         public void Delete(string name, string weekBeginning, string weekEnd)
         {

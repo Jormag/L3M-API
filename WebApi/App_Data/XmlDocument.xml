@@ -1,0 +1,1104 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApi</name>
+    </assembly>
+    <members>
+        <member name="M:WebApi.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
+            </summary>
+            <param name="description">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The ID as a string.</returns>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.HelpPageConfig">
+            <summary>
+            Use this class to customize the Help Page.
+            For example you can set a custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
+            or you can provide the samples for the requests/responses.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.Controllers.HelpController">
+            <summary>
+            The controller that will handle requests for the help page.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetDocumentationProvider(System.Web.Http.HttpConfiguration,System.Web.Http.Description.IDocumentationProvider)">
+            <summary>
+            Sets the documentation provider for help page.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="documentationProvider">The documentation provider.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleObjects(System.Web.Http.HttpConfiguration,System.Collections.Generic.IDictionary{System.Type,System.Object})">
+            <summary>
+            Sets the objects that will be used by the formatters to produce sample requests/responses.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleObjects">The sample objects.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type and action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleRequest(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample request directly for the specified media type and action with parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample request.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String)">
+            <summary>
+            Sets the sample request directly for the specified media type of the action.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleResponse(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.String,System.String,System.String[])">
+            <summary>
+            Sets the sample response directly for the specified media type of the action with specific parameters.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample response.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForMediaType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Sets the sample directly for all actions with the specified media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetSampleForType(System.Web.Http.HttpConfiguration,System.Object,System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Sets the sample directly for all actions with the specified type and media type.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sample">The sample.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The parameter type or return type of an action.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualRequestType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate request samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String)">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetActualResponseType(System.Web.Http.HttpConfiguration,System.Type,System.String,System.String,System.String[])">
+            <summary>
+            Specifies the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> returned as part of the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            The help page will use this information to produce more accurate response samples.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="type">The type.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <returns>The help page sample generator.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.SetHelpPageSampleGenerator(System.Web.Http.HttpConfiguration,WebApi.Areas.HelpPage.HelpPageSampleGenerator)">
+            <summary>
+            Sets the help page sample generator.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="sampleGenerator">The help page sample generator.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetModelDescriptionGenerator(System.Web.Http.HttpConfiguration)">
+            <summary>
+            Gets the model description generator.
+            </summary>
+            <param name="config">The configuration.</param>
+            <returns>The <see cref="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator"/></returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageConfigurationExtensions.GetHelpPageApiModel(System.Web.Http.HttpConfiguration,System.String)">
+            <summary>
+            Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
+            </summary>
+            <param name="config">The <see cref="T:System.Web.Http.HttpConfiguration"/>.</param>
+            <param name="apiDescriptionId">The <see cref="T:System.Web.Http.Description.ApiDescription"/> ID.</param>
+            <returns>
+            An <see cref="T:WebApi.Areas.HelpPage.Models.HelpPageApiModel"/>
+            </returns>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription">
+            <summary>
+            Describes a type model.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelDescriptionGenerator">
+            <summary>
+            Generates model descriptions for given types.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelNameAttribute">
+            <summary>
+            Use this attribute to change the name of the <see cref="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> generated for a type.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.Models.HelpPageApiModel">
+            <summary>
+            The model that represents an API displayed on the help page.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.Models.HelpPageApiModel.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApi.Areas.HelpPage.Models.HelpPageApiModel"/> class.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription">
+            <summary>
+            Gets or sets the <see cref="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.ApiDescription"/> that describes the API.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.UriParameters">
+            <summary>
+            Gets or sets the <see cref="T:WebApi.Areas.HelpPage.ModelDescriptions.ParameterDescription"/> collection that describes the URI parameters for the API.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestDocumentation">
+            <summary>
+            Gets or sets the documentation for the request.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestModelDescription">
+            <summary>
+            Gets or sets the <see cref="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the request body.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.RequestBodyParameters">
+            <summary>
+            Gets the request body parameter descriptions.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceDescription">
+            <summary>
+            Gets or sets the <see cref="T:WebApi.Areas.HelpPage.ModelDescriptions.ModelDescription"/> that describes the resource.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.ResourceProperties">
+            <summary>
+            Gets the resource property descriptions.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleRequests">
+            <summary>
+            Gets the sample requests associated with the API.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.SampleResponses">
+            <summary>
+            Gets the sample responses associated with the API.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.Models.HelpPageApiModel.ErrorMessages">
+            <summary>
+            Gets the error messages associated with this model.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.HelpPageSampleGenerator">
+            <summary>
+            This class will generate the samples for the help page.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApi.Areas.HelpPage.HelpPageSampleGenerator"/> class.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActualHttpMessageTypes">
+            <summary>
+            Gets CLR types that are used as the content of <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/>.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples">
+            <summary>
+            Gets the objects that are used directly as samples for certain actions.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects">
+            <summary>
+            Gets the objects that are serialized as samples by the supported formatters.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories">
+            <summary>
+            Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
+            stopping when the factory successfully returns a non-<see langref="null"/> object.
+            </summary>
+            <remarks>
+            Collection includes just <see cref="M:WebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)"/> initially. Use
+            <code>SampleObjectFactories.Insert(0, func)</code> to provide an override and
+            <code>SampleObjectFactories.Add(func)</code> to provide a fallback.</remarks>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleRequests(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the request body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleResponses(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Gets the response body samples for a given <see cref="T:System.Web.Http.Description.ApiDescription"/>.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSample(System.Web.Http.Description.ApiDescription,WebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Gets the request or response body samples.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The samples keyed by media type.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetActionSample(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Type,System.Net.Http.Formatting.MediaTypeFormatter,System.Net.Http.Headers.MediaTypeHeaderValue,WebApi.Areas.HelpPage.SampleDirection)">
+            <summary>
+            Search for samples that are provided directly through <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.ActionSamples"/>.
+            </summary>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="type">The CLR type.</param>
+            <param name="formatter">The formatter.</param>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or for a response.</param>
+            <returns>The sample that matches the parameters.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.GetSampleObject(System.Type)">
+            <summary>
+            Gets the sample object that will be serialized by the formatters. 
+            First, it will look at the <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjects"/>. If no sample object is found, it will try to create
+            one using <see cref="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.DefaultSampleObjectFactory(WebApi.Areas.HelpPage.HelpPageSampleGenerator,System.Type)"/> (which wraps an <see cref="T:WebApi.Areas.HelpPage.ObjectGenerator"/>) and other
+            factories in <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleGenerator.SampleObjectFactories"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The sample object.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveHttpRequestMessageType(System.Web.Http.Description.ApiDescription)">
+            <summary>
+            Resolves the actual type of <see cref="T:System.Net.Http.ObjectContent`1"/> passed to the <see cref="T:System.Net.Http.HttpRequestMessage"/> in an action.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <returns>The type.</returns>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.ResolveType(System.Web.Http.Description.ApiDescription,System.String,System.String,System.Collections.Generic.IEnumerable{System.String},WebApi.Areas.HelpPage.SampleDirection,System.Collections.ObjectModel.Collection{System.Net.Http.Formatting.MediaTypeFormatter}@)">
+            <summary>
+            Resolves the type of the action parameter or return value when <see cref="T:System.Net.Http.HttpRequestMessage"/> or <see cref="T:System.Net.Http.HttpResponseMessage"/> is used.
+            </summary>
+            <param name="api">The <see cref="T:System.Web.Http.Description.ApiDescription"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+            <param name="sampleDirection">The value indicating whether the sample is for a request or a response.</param>
+            <param name="formatters">The formatters.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleGenerator.WriteSampleObjectUsingFormatter(System.Net.Http.Formatting.MediaTypeFormatter,System.Object,System.Type,System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Writes the sample object using formatter.
+            </summary>
+            <param name="formatter">The formatter.</param>
+            <param name="value">The value.</param>
+            <param name="type">The type.</param>
+            <param name="mediaType">Type of the media.</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.HelpPageSampleKey">
+            <summary>
+            This is used to identify the place where the sample should be applied.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue)">
+            <summary>
+            Creates a new <see cref="T:WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,System.Type)">
+            <summary>
+            Creates a new <see cref="T:WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type and CLR type.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="type">The CLR type.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(WebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="sampleDirection">The <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.HelpPageSampleKey.#ctor(System.Net.Http.Headers.MediaTypeHeaderValue,WebApi.Areas.HelpPage.SampleDirection,System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:WebApi.Areas.HelpPage.HelpPageSampleKey"/> based on media type, <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>, controller name, action name and parameter names.
+            </summary>
+            <param name="mediaType">The media type.</param>
+            <param name="sampleDirection">The <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="parameterNames">The parameter names.</param>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleKey.ControllerName">
+            <summary>
+            Gets the name of the controller.
+            </summary>
+            <value>
+            The name of the controller.
+            </value>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleKey.ActionName">
+            <summary>
+            Gets the name of the action.
+            </summary>
+            <value>
+            The name of the action.
+            </value>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleKey.MediaType">
+            <summary>
+            Gets the media type.
+            </summary>
+            <value>
+            The media type.
+            </value>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleKey.ParameterNames">
+            <summary>
+            Gets the parameter names.
+            </summary>
+        </member>
+        <member name="P:WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection">
+            <summary>
+            Gets the <see cref="P:WebApi.Areas.HelpPage.HelpPageSampleKey.SampleDirection"/>.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.ImageSample">
+            <summary>
+            This represents an image sample on the help page. There's a display template named ImageSample associated with this class.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.ImageSample.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApi.Areas.HelpPage.ImageSample"/> class.
+            </summary>
+            <param name="src">The URL of an image.</param>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.InvalidSample">
+            <summary>
+            This represents an invalid sample on the help page. There's a display template named InvalidSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.ObjectGenerator">
+            <summary>
+            This class will create an object of a given type and populate it with sample data.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.ObjectGenerator.GenerateObject(System.Type)">
+            <summary>
+            Generates an object for a given type. The type needs to be public, have a public default constructor and settable public properties/fields. Currently it supports the following types:
+            Simple types: <see cref="T:System.Int32"/>, <see cref="T:System.String"/>, <see cref="T:System.Enum"/>, <see cref="T:System.DateTime"/>, <see cref="T:System.Uri"/>, etc.
+            Complex types: POCO types.
+            Nullables: <see cref="T:System.Nullable`1"/>.
+            Arrays: arrays of simple types or complex types.
+            Key value pairs: <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            Tuples: <see cref="T:System.Tuple`1"/>, <see cref="T:System.Tuple`2"/>, etc
+            Dictionaries: <see cref="T:System.Collections.Generic.IDictionary`2"/> or anything deriving from <see cref="T:System.Collections.Generic.IDictionary`2"/>.
+            Collections: <see cref="T:System.Collections.Generic.IList`1"/>, <see cref="T:System.Collections.Generic.IEnumerable`1"/>, <see cref="T:System.Collections.Generic.ICollection`1"/>, <see cref="T:System.Collections.IList"/>, <see cref="T:System.Collections.IEnumerable"/>, <see cref="T:System.Collections.ICollection"/> or anything deriving from <see cref="T:System.Collections.Generic.ICollection`1"/> or <see cref="T:System.Collections.IList"/>.
+            Queryables: <see cref="T:System.Linq.IQueryable"/>, <see cref="T:System.Linq.IQueryable`1"/>.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>An object of the given type.</returns>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.SampleDirection">
+            <summary>
+            Indicates whether the sample is used for request or response
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.TextSample">
+            <summary>
+            This represents a preformatted text sample on the help page. There's a display template named TextSample associated with this class.
+            </summary>
+        </member>
+        <member name="T:WebApi.Areas.HelpPage.XmlDocumentationProvider">
+            <summary>
+            A custom <see cref="T:System.Web.Http.Description.IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
+            </summary>
+        </member>
+        <member name="M:WebApi.Areas.HelpPage.XmlDocumentationProvider.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:WebApi.Areas.HelpPage.XmlDocumentationProvider"/> class.
+            </summary>
+            <param name="documentPath">The physical path to XML document.</param>
+        </member>
+        <member name="T:WebApi.Controllers.BranchOfficesController">
+            <summary>
+            Controlador de la clase BranchOffice
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.BranchOfficesController.Get">
+            <summary>
+            Permite mostrar el listado de Sucursales
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.BranchOfficesController.Get(System.String)">
+            <summary>
+            Permite filtrar sucursales por nombre
+            </summary>
+            <param name="name"> Nombre de la Sucursal </param>
+        </member>
+        <member name="M:WebApi.Controllers.BranchOfficesController.Post(System.String,System.String,System.String,System.String)">
+            <summary>
+            Permite agregar nuevas sucursales
+            </summary>
+            <param name="name"> Nombre de la Sucursal </param>
+            <param name="address"> Direccion de la Sucursal </param>
+            <param name="phone"> Numero telefonico de la Sucursal </param>
+            <param name="administrator"> Nombre del administrador a cargo de la Sucursal</param>
+        </member>
+        <member name="M:WebApi.Controllers.BranchOfficesController.Put(System.String,System.String,System.String,System.String)">
+            <summary>
+            Permite modificar la informacion de las sucursales
+            </summary>
+            <param name="name"> Nombre de la Sucursal </param>
+            <param name="address"> Direccion de la Sucursal </param>
+            <param name="phone"> Numero telefonico de la Sucursal </param>
+            <param name="administrator"> Nombre del administrador a cargo de la Sucursal</param>
+        </member>
+        <member name="M:WebApi.Controllers.BranchOfficesController.Delete(System.String)">
+            <summary>
+            Permite eliminar sucursales
+            </summary>
+            <param name="name"> Nombre de la Sucursal </param>
+        </member>
+        <member name="T:WebApi.Controllers.BranchInventoriesController">
+            <summary>
+            Controlador de la clase BranchInventory
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.BranchInventoriesController.Get">
+            <summary>
+            Muestra el listado completo del inventario para todas las sucursales
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.BranchInventoriesController.Get(System.String)">
+            <summary>
+            Muestra el listado de productos para una Sucursal especifica
+            </summary>
+            <param name="branchOffice"> Nombre de la Sucursal </param>
+        </member>
+        <member name="M:WebApi.Controllers.BranchInventoriesController.Post(System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Permite Agregar nuevos productos a una sucursal
+            </summary>
+            <param name="barcode"> Codigo de barras del producto </param>
+            <param name="name"> Nombre del producto </param>
+            <param name="description"> Descripcion del producto</param>
+            <param name="branchPrice"> Precio en la Sucursal </param>
+            <param name="stock"> Existencias </param>
+            <param name="branchOffice"> Nombre de la Sucursal </param>
+        </member>
+        <member name="M:WebApi.Controllers.BranchInventoriesController.Put(System.String,System.String,System.String,System.Int32,System.Int32,System.String)">
+            <summary>
+            Permite modificar la informacion de los productos de una sucursal
+            </summary>
+            <param name="barcode"> Codigo de barras del producto </param>
+            <param name="name"> Nombre del producto </param>
+            <param name="description"> Descripcion del producto</param>
+            <param name="branchPrice"> Precio en la Sucursal </param>
+            <param name="stock"> Existencias </param>
+            <param name="branchOffice"> Nombre de la Sucursal </param>
+        </member>
+        <member name="M:WebApi.Controllers.BranchInventoriesController.Delete(System.String,System.String,System.String)">
+            <summary>
+            Permite eliminar productis de una sucursal
+            </summary>
+            <param name="barcode"> Codigo de barras del producto </param>
+            <param name="name"> Nombre del producto </param>
+            <param name="branchOffice"> Nombre de la Sucursal </param>
+        </member>
+        <member name="T:WebApi.Controllers.ProductsController">
+            <summary>
+            Controlador de los productos
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.Get">
+            <summary>
+            Permite consultar un listado de productos existentes
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.Get(System.String)">
+            <summary>
+            Permite consultar un listado de productos existentes a partir del nombre
+            </summary>
+            <param name="name"> Nombre del producto </param>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.Post(System.String,System.String,System.Int32,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Permite agregar productos al listado
+            </summary>
+            <param name="barcode"> Codigo de barras del producto </param>
+            <param name="name"> Nombre del producto </param>
+            <param name="price"> Precio del producto </param>
+            <param name="description"> Descripcion del producto </param>
+            <param name="provider"> Proveedor del producto </param>
+            <param name="tax"> Indica si el producto posee impuesto o no </param>
+            <param name="discount"> Indica si el producto posee descuento o no </param>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.Put(System.String,System.String,System.Int32,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Permite modificar productos del listado
+            </summary>
+            <param name="barcode"> Codigo de barras del producto </param>
+            <param name="name"> Nombre del producto </param>
+            <param name="price"> Precio del producto </param>
+            <param name="description"> Descripcion del producto </param>
+            <param name="provider"> Proveedor del producto </param>
+            <param name="tax"> Indica si el producto posee impuesto o no </param>
+            <param name="discount"> Indica si el producto posee descuento o no </param>
+        </member>
+        <member name="M:WebApi.Controllers.ProductsController.Delete(System.String,System.String)">
+            <summary>
+            Permite eliminar productos del listado
+            </summary>
+            <param name="barcode"> Codigo de barras del producto </param>
+            <param name="name"> Nombre del producto </param>
+        </member>
+        <member name="T:WebApi.Controllers.PurchaseController">
+            <summary>
+            Controlador de Compras
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.PurchaseController.Get">
+            <summary>
+            Permite consultar la lista de compras
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.PurchaseController.Get(System.String)">
+            <summary>
+            Permite consultar una compra especifica
+            </summary>
+            <param name="id"> Identificador de la compra </param>
+        </member>
+        <member name="M:WebApi.Controllers.PurchaseController.Post(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Permite agregar compras a la lista
+            </summary>
+            <param name="description"> Descripcion de la compra </param>
+            <param name="realDate"> Fecha real en que se realizo la compra </param>
+            <param name="registrationDate"> Fecha de registro de la compra</param>
+            <param name="supplier"> Proveedor de la compra</param>
+            <param name="image"> Enlace de la imagen de la compra </param>
+            <param name="branchOffice"> Sucursal en la que se realizo la compra </param>
+        </member>
+        <member name="M:WebApi.Controllers.PurchaseController.Put(System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Permite modificar compras de la lista
+            </summary>
+            <param name="id"> Identificador de la compra </param>
+            <param name="description"> Descripcion de la compra </param>
+            <param name="realDate"> Fecha real en que se realizo la compra </param>
+            <param name="registrationDate"> Fecha de registro de la compra</param>
+            <param name="supplier"> Proveedor de la compra</param>
+            <param name="image"> Enlace de la imagen de la compra </param>
+            <param name="branchOffice"> Sucursal en la que se realizo la compra </param>
+        </member>
+        <member name="M:WebApi.Controllers.PurchaseController.Delete(System.String)">
+            <summary>
+            Permite eliminar compras de la lista
+            </summary>
+            <param name="id"> Identificador de la compra </param>
+        </member>
+        <member name="T:WebApi.Controllers.RolesController">
+            <summary>
+            Controlador de roles
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.RolesController.Get">
+            <summary>
+            Permite consultar la lista de roles
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.RolesController.Get(System.String)">
+            <summary>
+            Permite consultar una lista de roles especificos
+            </summary>
+            <param name="name">Nombre del rol</param>
+        </member>
+        <member name="M:WebApi.Controllers.RolesController.Post(System.String,System.String)">
+            <summary>
+            Permite agregar un nuevo rol a la lista
+            </summary>
+            <param name="name">Nombre del rol</param>
+            <param name="description">Descripcion del rol</param>
+        </member>
+        <member name="M:WebApi.Controllers.RolesController.Put(System.String,System.String)">
+            <summary>
+            Permite modificar un rol existente en la lista
+            </summary>
+            <param name="name">Nombre del rol</param>
+            <param name="description">Descripcion del rol</param>
+        </member>
+        <member name="M:WebApi.Controllers.RolesController.Delete(System.String,System.String)">
+            <summary>
+            Permite eliminar un rol de la lista
+            </summary>
+            <param name="name">Nombre del rol</param>
+            <param name="description">Descripcion del rol</param>
+        </member>
+        <member name="T:WebApi.Controllers.SuppliersController">
+            <summary>
+            Controlador de proveedores
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SuppliersController.Get">
+            <summary>
+            Permite consultar la lista de proveedores
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.SuppliersController.Get(System.String)">
+            <summary>
+            Permite consultar un proveedor especifico de la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del proveedor</param>
+        </member>
+        <member name="M:WebApi.Controllers.SuppliersController.Post(System.String,System.String)">
+            <summary>
+            Permite agregar un proveedor nuevo a la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del proveedor</param>
+            <param name="name"> Nombre del proveedor </param>
+        </member>
+        <member name="M:WebApi.Controllers.SuppliersController.Put(System.String,System.String)">
+            <summary>
+            Permite modificar la informacion de un proveedor de la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del proveedor</param>
+            <param name="name"> Nombre del proveedor </param>
+        </member>
+        <member name="M:WebApi.Controllers.SuppliersController.Delete(System.String)">
+            <summary>
+            Permite eliminar un proveedor de la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del proveedor</param>
+        </member>
+        <member name="T:WebApi.Controllers.WorkersController">
+            <summary>
+            Controlador de los trabajadores
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.WorkersController.Get">
+            <summary>
+            Permite consultar la lista de trabajadores
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.WorkersController.Get(System.String)">
+            <summary>
+            Permite consultar trabajadores por numero de cedula
+            </summary>
+            <param name="identificationCard"> Numero de cedula del trabajador</param>
+        </member>
+        <member name="M:WebApi.Controllers.WorkersController.Post(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Permite agregar nuevos trabajadores a la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del trabajador</param>
+            <param name="name"> Nombre del trabajador</param>
+            <param name="birthDate"> Fecha de nacimiento del trabajador</param>
+            <param name="admissionDate"> Fecha de ingreso </param>
+            <param name="branchOffice"> Sucursar en la que trabaja</param>
+            <param name="hourlyWage"> Salario por hora del trabajador</param>
+            <param name="rol"> Rol del trabajador</param>
+        </member>
+        <member name="M:WebApi.Controllers.WorkersController.Put(System.String,System.String,System.String,System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Permite modificar trabajadores de la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del trabajador</param>
+            <param name="name"> Nombre del trabajador</param>
+            <param name="birthDate"> Fecha de nacimiento del trabajador</param>
+            <param name="admissionDate"> Fecha de ingreso </param>
+            <param name="branchOffice"> Sucursar en la que trabaja</param>
+            <param name="hourlyWage"> Salario por hora del trabajador</param>
+            <param name="rol"> Rol del trabajador</param>
+        </member>
+        <member name="M:WebApi.Controllers.WorkersController.Delete(System.String)">
+            <summary>
+            Permite eliminar trabajadores de la lista
+            </summary>
+            <param name="identificationCard"> Numero de cedula del trabajador</param>
+        </member>
+        <member name="T:WebApi.Controllers.HourRecordsController">
+            <summary>
+            Controlador del registro de horas
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.HourRecordsController.Get">
+            <summary>
+            Permite consultar el listado general de registros de horas
+            </summary>
+        </member>
+        <member name="M:WebApi.Controllers.HourRecordsController.Get(System.String)">
+            <summary>
+            Permite consultar el listado  de registros de horas para un trabajador especifico
+            </summary>
+            <param name="name"> Nombre del trabajador </param>
+        </member>
+        <member name="M:WebApi.Controllers.HourRecordsController.Post(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Permite agregar nuevos registros de horas
+            </summary>
+            <param name="name"> Nombre del trabajador</param>
+            <param name="weekBeginning"> Fecha de Inicio de la semana</param>
+            <param name="weekEnd"> Fecha de Finalizacion de la semana</param>
+            <param name="workedHours"> Cantidad de horas trabajadas</param>
+        </member>
+        <member name="M:WebApi.Controllers.HourRecordsController.Put(System.String,System.String,System.String,System.Int32)">
+            <summary>
+            Permite modificar registros de horas
+            </summary>
+            <param name="name"> Nombre del trabajador</param>
+            <param name="weekBeginning"> Fecha de Inicio de la semana</param>
+            <param name="weekEnd"> Fecha de Finalizacion de la semana</param>
+            <param name="workedHours"> Cantidad de horas trabajadas</param>
+        </member>
+        <member name="M:WebApi.Controllers.HourRecordsController.Delete(System.String,System.String,System.String)">
+            <summary>
+            Permite eliminar registros de horas existentes
+            </summary>
+            <param name="name"> Nombre del trabajador</param>
+            <param name="weekBeginning"> Fecha de Inicio de la semana</param>
+            <param name="weekEnd"> Fecha de Finalizacion de la semana</param>
+        </member>
+        <member name="T:WebApi.Models.BranchOffice">
+            <summary>
+             Entidad que representa una Sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchOffice.Name">
+            <summary>
+             Nombre de la sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchOffice.Address">
+            <summary>
+             Direccion de la Sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchOffice.Phone">
+            <summary>
+             Numero telefonico de la Sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchOffice.Administrator">
+            <summary>
+             Nombre del administrador a cargo de la Sucursal
+             </summary>
+        </member>
+        <member name="T:WebApi.Models.DataBaseStruct">
+            <summary>
+            Estructura del JSON
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.Roles">
+            <summary>
+            Lista de Roles en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.BranchOffices">
+            <summary>
+            Lista de Sucursales en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.Workers">
+            <summary>
+            Lista de Trabajadores en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.HourRecords">
+            <summary>
+            Lista de Registros de horas en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.Suppliers">
+            <summary>
+            Lista de Proveedores en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.Products">
+            <summary>
+            Lista de Productis en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.Purchases">
+            <summary>
+            Lista de Compras en el json
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.DataBaseStruct.BranchInventories">
+            <summary>
+            Lista de Inventarios por sucursal en el json
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.BranchInventory">
+            <summary>
+             Entidad que representa el inventario de productos de una sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchInventory.Barcode">
+            <summary>
+             Nombre de la sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchInventory.Name">
+            <summary>
+             Codigo de barras del producto
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchInventory.Description">
+            <summary>
+             Nombre del producto
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchInventory.BranchPrice">
+            <summary>
+             Descripcion del producto
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchInventory.Stock">
+            <summary>
+             Precio por sucursal
+             </summary>
+        </member>
+        <member name="P:WebApi.Models.BranchInventory.BranchOffice">
+            <summary>
+             Nombre de la sucursal
+             </summary>
+        </member>
+        <member name="T:WebApi.Models.Purchase">
+            <summary>
+            Entidad encargada de representar las compras
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.ID">
+            <summary>
+            Identificador de la compra
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.Description">
+            <summary>
+            Descripcion de la compra
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.RealDate">
+            <summary>
+            Fecha real en que se realizo la compra
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.RegistrationDate">
+            <summary>
+            Fecha de registro de la compra
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.Supplier">
+            <summary>
+            Proveedor de la compra
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.Image">
+            <summary>
+            Enlace de la imagen de la compra
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Purchase.BranchOffice">
+            <summary>
+            Sucursal en la que se realizo la compra
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.Product">
+            <summary>
+            Entidad encargada de representar los productos
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Barcode">
+            <summary>
+            Codigo de Barras del producto
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Name">
+            <summary>
+            Nombre del producto
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Description">
+            <summary>
+            Descripcion del producto
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Price">
+            <summary>
+            Precio del producto
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Supplier">
+            <summary>
+            Proveedor del producto
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Tax">
+            <summary>
+            Indica si el producto posee impuesto o no
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Product.Discount">
+            <summary>
+            Indica si el producto posee descuento o no
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.Supplier">
+            <summary>
+            Entidad encargada de representar los Proveedores
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Supplier.IdentificationCard">
+            <summary>
+            Numero de cedula del proveedor
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Supplier.Name">
+            <summary>
+            Nombre del proveedor
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.Worker">
+            <summary>
+            Entidad encargada de representar los trabajadores
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.IdentificationCard">
+            <summary>
+            Numero de cedula del trabajador
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.Name">
+            <summary>
+            Nombre del trabajador
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.BirthDate">
+            <summary>
+            Fecha de nacimiento
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.AdmissionDate">
+            <summary>
+            Fecha de ingreso
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.BranchOffice">
+            <summary>
+            Sucursar en la que trabaja
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.HourlyWage">
+            <summary>
+            Salario por hora
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Worker.Rol">
+            <summary>
+            Rol del trabajador
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.Rol">
+            <summary>
+            Entidad encargada de representar los roles
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Rol.Name">
+            <summary>
+            Nombre del rol
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.Rol.Description">
+            <summary>
+            Descripcion dek rol
+            </summary>
+        </member>
+        <member name="T:WebApi.Models.HourRecord">
+            <summary>
+            Entidad encargada de los Registros de Horas
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.HourRecord.Name">
+            <summary>
+            Nombre del trabajador
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.HourRecord.WeekBeginning">
+            <summary>
+            Fecha de Inicio de la semana de trabajo
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.HourRecord.WeekEnd">
+            <summary>
+            Fecha de finalizacion de la semana de trabajo
+            </summary>
+        </member>
+        <member name="P:WebApi.Models.HourRecord.WorkedHours">
+            <summary>
+            Cantidad de horas trabajadas
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -13,10 +13,16 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador de la clase BranchOffice
+    ///</summary>
     public class BranchOfficesController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+        ///<summary>
+        ///Permite mostrar el listado de Sucursales
+        ///</summary>
         [HttpGet]
         public List<BranchOffice> Get()
         {
@@ -31,7 +37,10 @@ namespace WebApi.Controllers
                 return list.BranchOffices;
             }
         }
-
+        ///<summary>
+        ///Permite filtrar sucursales por nombre
+        ///</summary>
+        ///<param name="name"> Nombre de la Sucursal </param>
         [HttpGet]
         public List<BranchOffice> Get(string name)
         {
@@ -57,7 +66,13 @@ namespace WebApi.Controllers
                 return BranchOffices;
             }
         }
-
+        ///<summary>
+        ///Permite agregar nuevas sucursales
+        ///</summary>
+        ///<param name="name"> Nombre de la Sucursal </param>
+        ///<param name="address"> Direccion de la Sucursal </param>
+        ///<param name="phone"> Numero telefonico de la Sucursal </param>
+        ///<param name="administrator"> Nombre del administrador a cargo de la Sucursal</param>
         [HttpPost]
         public void Post(string name, string address, string phone, string administrator)
         {
@@ -106,7 +121,13 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite modificar la informacion de las sucursales
+        ///</summary>
+        ///<param name="name"> Nombre de la Sucursal </param>
+        ///<param name="address"> Direccion de la Sucursal </param>
+        ///<param name="phone"> Numero telefonico de la Sucursal </param>
+        ///<param name="administrator"> Nombre del administrador a cargo de la Sucursal</param>
         [HttpPut]
         public void Put(string name, string address, string phone, string administrator)
         {
@@ -158,7 +179,10 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar sucursales
+        ///</summary>
+        ///<param name="name"> Nombre de la Sucursal </param>
         [HttpDelete]
         public void Delete(string name)
         {

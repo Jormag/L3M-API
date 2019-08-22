@@ -13,10 +13,16 @@ using System.Text;
 
 namespace WebApi.Controllers
 {
+    ///<summary>
+    ///Controlador de Compras
+    ///</summary>
     public class PurchaseController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
 
+        ///<summary>
+        ///Permite consultar la lista de compras
+        ///</summary>
         [HttpGet]
         public List<Purchase> Get()
         {
@@ -31,7 +37,10 @@ namespace WebApi.Controllers
                 return list.Purchases;
             }
         }
-
+        ///<summary>
+        ///Permite consultar una compra especifica
+        ///</summary>
+        ///<param name="id"> Identificador de la compra </param>
         [HttpGet]
         public Purchase Get(string id)
         {
@@ -56,7 +65,15 @@ namespace WebApi.Controllers
                 return purchase;
             }
         }
-
+        ///<summary>
+        ///Permite agregar compras a la lista
+        ///</summary>
+        ///<param name="description"> Descripcion de la compra </param>
+        ///<param name="realDate"> Fecha real en que se realizo la compra </param>
+        ///<param name="registrationDate"> Fecha de registro de la compra</param>
+        ///<param name="supplier"> Proveedor de la compra</param>
+        ///<param name="image"> Enlace de la imagen de la compra </param>
+        ///<param name="branchOffice"> Sucursal en la que se realizo la compra </param>
         [HttpPost]
         public void Post(string description, string realDate, string registrationDate, string supplier, string image, string branchOffice)
         {
@@ -110,7 +127,16 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite modificar compras de la lista
+        ///</summary>
+        ///<param name="id"> Identificador de la compra </param>
+        ///<param name="description"> Descripcion de la compra </param>
+        ///<param name="realDate"> Fecha real en que se realizo la compra </param>
+        ///<param name="registrationDate"> Fecha de registro de la compra</param>
+        ///<param name="supplier"> Proveedor de la compra</param>
+        ///<param name="image"> Enlace de la imagen de la compra </param>
+        ///<param name="branchOffice"> Sucursal en la que se realizo la compra </param>
         [HttpPut]
         public void Put(string id, string description, string realDate, string registrationDate, string supplier, string image, string branchOffice)
         {
@@ -164,7 +190,10 @@ namespace WebApi.Controllers
                 }
             }
         }
-
+        ///<summary>
+        ///Permite eliminar compras de la lista
+        ///</summary>
+        ///<param name="id"> Identificador de la compra </param>
         [HttpDelete]
         public void Delete(string id)
         {
