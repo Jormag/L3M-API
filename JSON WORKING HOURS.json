@@ -1,0 +1,19 @@
+{
+  "WorkingHours": [
+    {
+      "Name": "Juliana",
+      "First Name": "Valverde",
+      "Second Name": "Solano",
+      "WeeklyHours": "50",
+      "ExtraHours": "10"
+    },
+    {
+      "Name": "Carlos",
+      "First Name": "Solis",
+      "Second Name": "Arias",
+      "WeeklyHours": "45",
+      "ExtraHours": "17"
+    }
+  ]
+
+}

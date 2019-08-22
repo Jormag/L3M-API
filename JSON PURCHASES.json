@@ -1,0 +1,20 @@
+{
+  "Purchases": [
+    {
+      "Description": "Venta de arroz",
+      "RealDatePurchase": "11/09/2018",
+      "RegistrationDatePurchase": "15/10/2018",
+      "Provider": "Tio Pelon",
+      "PurchaseImage": "imagen",
+      "PurchaseRegistrationBranch": "Sucursal Maria A"
+    },
+    {
+      "Description": "Venta de frijoles",
+      "RealDatePurchase": "12/09/2018",
+      "RegistrationDatePurchase": "15/09/2018",
+      "Provider": "Tio Pelon",
+      "PurchaseImage": "imagen",
+      "PurchaseRegistrationBranch": "Sucursal Maria A"
+    }
+  ]
+}

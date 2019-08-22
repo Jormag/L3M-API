@@ -1,0 +1,18 @@
+{
+  "Roles": [
+    {
+      "ID": "juva20",
+      "Name": "Juliana",
+      "First Name": "Valverde",
+      "Second Name": "Solano",
+      "Rol": "Cajero"
+    },
+    {
+      "ID": "caso61",
+      "Name": "Carlos",
+      "First Name": "Solis",
+      "Second Name": "Arias",
+      "Rol": "Gerente"
+    }
+  ]
+}
