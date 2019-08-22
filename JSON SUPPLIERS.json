@@ -1,0 +1,15 @@
+{
+  "Suppliers": [
+    {
+      "Number": "1",
+      "Supplier": "Dos Pinos",
+      "IdentificationCard": "183KL"
+    },
+    {
+      "Number": "2",
+      "Supplier": "Pastas Roma",
+      "IdentificationCard": "783PR"
+    }
+  ]
+
+}
