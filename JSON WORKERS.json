@@ -3,8 +3,10 @@
     {
       "Number": "1",
       "Name": "Maria ",
-      "First Name": "Valverde",
-      "Second Name": "Paletito",
+
+      "Surname": "Valverde",
+      "Second Surname": "Paletito",
+
       "Identifaction Card": "310150123",
       "BirthDate":  "11/09/1995",
       "AdmissionDate": "20/06/2015",
@@ -14,8 +16,10 @@
     {
       "Number": "2",
       "Name": "Alejandro ",
-      "First Name": "Navarro",
-      "Second Name": "Valverde",
+
+      "Surname": "Navarro",
+      "Second Surname": "Valverde",
+
       "Identifaction Card": "617850482",
       "BirthDate": "31/12/1978",
       "AdmissionDate": "11/08/2012",
