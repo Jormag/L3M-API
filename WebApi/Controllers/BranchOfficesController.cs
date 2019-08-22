@@ -9,17 +9,22 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using WebApi.Models;
+using System.Text;
 
 namespace WebApi.Controllers
 {
     public class BranchOfficesController : ApiController
     {
-        readonly string url = "C:/Users/yenma/Downloads/II Semestre 2019/Bases de datos/WebApi/WebApi/WebApi/Data/DataBase.json";
+        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=3e69be41-1a56-41bd-9d2e-3d2119e58561";
 
         [HttpGet]
-        public List<Branchoffice> Get()
+        public List<BranchOffice> Get()
         {
-            using (StreamReader jsonStream = File.OpenText(url))
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+
+            using (StreamReader jsonStream = new StreamReader(stream))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
@@ -28,19 +33,23 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public Branchoffice Get(string id)
+        public List<BranchOffice> Get(string name)
         {
-            using (StreamReader jsonStream = File.OpenText(url))
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+
+            using (StreamReader jsonStream = new StreamReader(stream))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Branchoffice BranchOffices = new Branchoffice();
+                List<BranchOffice> BranchOffices = new List<BranchOffice>();
                 while (x < list.BranchOffices.Count)
                 {
-                    if (string.Equals(list.BranchOffices[x].ID, id))
+                    if (string.Equals(list.BranchOffices[x].Name, name))
                     {
-                        BranchOffices = list.BranchOffices[x];
+                        BranchOffices.Add(list.BranchOffices[x]);
                     }
                     x++;
                 }
@@ -50,40 +59,71 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public void Post(string branch, string address, string phone, string administrator)
+        public void Post(string name, string address, string phone, string administrator)
         {
-            using (StreamReader jsonStream = File.OpenText(url))
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+
+            using (StreamReader jsonStream = new StreamReader(stream))
             {
-                Branchoffice BranchOffices = new Branchoffice();
-                Random rnd = new Random();
-                BranchOffices.ID = rnd.Next(0, 9999).ToString();
-                BranchOffices.Branch = branch;
-                BranchOffices.Address = address;
-                BranchOffices.Phone = phone;
-                BranchOffices.Administrator = administrator;
+                BranchOffice BranchOffices = new BranchOffice
+                {
+                    Name = name,
+                    Address = address,
+                    Phone = phone,
+                    Administrator = administrator
+                };
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
                 list.BranchOffices.Add(BranchOffices);
+
+                //Serializar el json
+                var request2 = (HttpWebRequest)WebRequest.Create(url);
+                request2.Method = "POST";
+                request2.ContentType = "application/json";
+                request2.Timeout = 30000;
+
                 string jsonNew = JsonConvert.SerializeObject(list);
-                jsonStream.Close();
-                System.IO.File.WriteAllText(url, jsonNew);
+                byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
+                request2.ContentLength = byteArray.Length;
+
+                using (var dataStream = request2.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                }
+
+                using (HttpWebResponse response3 = (HttpWebResponse)request2.GetResponse())
+                {
+                    using (Stream stream2 = response3.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream2))
+                        {
+                            string responseFromServer = reader.ReadToEnd();
+                        }
+                    }
+                }
             }
         }
 
         [HttpPut]
-        public void Put(string id, string branch, string address, string phone, string administrator)
+        public void Put(string name, string address, string phone, string administrator)
         {
-            using (StreamReader jsonStream = File.OpenText(url))
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+
+            using (StreamReader jsonStream = new StreamReader(stream))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
                 while (x < list.BranchOffices.Count)
                 {
-                    if (string.Equals(list.BranchOffices[x].ID, id))
+                    if (string.Equals(list.BranchOffices[x].Name, name))
                     {
-                        list.BranchOffices[x].Branch = branch;
+                        list.BranchOffices[x].Name = name;
                         list.BranchOffices[x].Address = address;
                         list.BranchOffices[x].Phone = phone;
                         list.BranchOffices[x].Administrator = administrator;
@@ -91,32 +131,80 @@ namespace WebApi.Controllers
                     x++;
                 }
 
+                //Serializar el json
+                var request2 = (HttpWebRequest)WebRequest.Create(url);
+                request2.Method = "POST";
+                request2.ContentType = "application/json";
+                request2.Timeout = 30000;
+
                 string jsonNew = JsonConvert.SerializeObject(list);
-                jsonStream.Close();
-                System.IO.File.WriteAllText(url, jsonNew);
+                byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
+                request2.ContentLength = byteArray.Length;
+
+                using (var dataStream = request2.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                }
+
+                using (HttpWebResponse response3 = (HttpWebResponse)request2.GetResponse())
+                {
+                    using (Stream stream2 = response3.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream2))
+                        {
+                            string responseFromServer = reader.ReadToEnd();
+                        }
+                    }
+                }
             }
         }
 
         [HttpDelete]
-        public void Delete(string id)
+        public void Delete(string name)
         {
-            using (StreamReader jsonStream = File.OpenText(url))
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (Stream stream = response.GetResponseStream())
+
+            using (StreamReader jsonStream = new StreamReader(stream))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
                 while (x < list.BranchOffices.Count)
                 {
-                    if (string.Equals(list.BranchOffices[x].ID, id))
+                    if (string.Equals(list.BranchOffices[x].Name, name))
                     {
                         list.BranchOffices.RemoveAt(x);
                     }
                     x++;
                 }
 
+                //Serializar el json
+                var request2 = (HttpWebRequest)WebRequest.Create(url);
+                request2.Method = "POST";
+                request2.ContentType = "application/json";
+                request2.Timeout = 30000;
+
                 string jsonNew = JsonConvert.SerializeObject(list);
-                jsonStream.Close();
-                System.IO.File.WriteAllText(url, jsonNew);
+                byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
+                request2.ContentLength = byteArray.Length;
+
+                using (var dataStream = request2.GetRequestStream())
+                {
+                    dataStream.Write(byteArray, 0, byteArray.Length);
+                }
+
+                using (HttpWebResponse response3 = (HttpWebResponse)request2.GetResponse())
+                {
+                    using (Stream stream2 = response3.GetResponseStream())
+                    {
+                        using (StreamReader reader = new StreamReader(stream2))
+                        {
+                            string responseFromServer = reader.ReadToEnd();
+                        }
+                    }
+                }
             }
         }
     }
