@@ -1,0 +1,15 @@
+{
+  "ProductList": [
+    {
+      "Product": "Leche Pinito",
+      "CostProduct": "2500",
+      "Existence": "Si"
+    },
+    {
+      "Product": "Natilla Dos Pinos",
+      "CostProduct": "1000",
+      "Existence": "No"
+    }
+  ]
+
+}

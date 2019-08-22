@@ -2,15 +2,15 @@
   "WorkingHours": [
     {
       "Name": "Juliana",
-      "First Name": "Valverde",
-      "Second Name": "Solano",
+      "Surname": "Valverde",
+      "Second Surname": "Solano",
       "WeeklyHours": "50",
       "ExtraHours": "10"
     },
     {
       "Name": "Carlos",
-      "First Name": "Solis",
-      "Second Name": "Arias",
+      "Surname": "Solis",
+      "Second surname": "Arias",
       "WeeklyHours": "45",
       "ExtraHours": "17"
     }

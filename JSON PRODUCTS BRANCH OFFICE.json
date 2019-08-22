@@ -1,0 +1,16 @@
+{
+  "ProductsBranch": [
+    {
+      "Product": "Leche Pinito",
+      "Description": "Leche en polvo",
+      "CostProduct": "2500",
+      "Existence": "si"
+    },
+    {
+      "Product": "Natilla Dos Pinos",
+      "Description": "Producto lacteo",
+      "CostProduct": "1000",
+      "Existence": "no"
+    }
+  ]
+}

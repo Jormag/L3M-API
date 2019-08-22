@@ -1,0 +1,18 @@
+{
+  "BranchOffices": [
+    {
+      "Number": "1",
+      "Branch": "Maria C",
+      "Address": "Valverde",
+      "Phone": "78945213",
+      "Administrator": "Juanito Mora"
+    },
+    {
+      "Number": "2",
+      "Branch": "Maria B",
+      "Address": "San Pedro de Montes de Oca",
+      "Phone": "98234610",
+      "Administrator": "Susana Oria"
+    }
+  ]
+}
