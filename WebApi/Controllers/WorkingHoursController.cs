@@ -10,60 +10,63 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using WebApi.Models;
 
+
 namespace WebApi.Controllers
 {
-    public class SuppliersController : ApiController
+    public class WorkingHoursController : ApiController
     {
-        readonly string url = "C:/Users/yenma/Downloads/II Semestre 2019/Bases de datos/WebApi/WebApi/WebApi/Data/DataBase.json";
+        readonly string url = "D:/Cristian/Documents/Proyectos Visual Studio/WebApi/WebApi/Data/DataBase.json";
 
         [HttpGet]
-        public List<Suppliers> Get()
+        public List<Workinghour> Get()
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
-                return list.Suppliers;
+                return list.WorkingHours;
             }
         }
 
         [HttpGet]
-        public Suppliers Get(string id)
+        public Workinghour Get(string id)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Suppliers Suppliers = new Suppliers();
-                while (x < list.Suppliers.Count)
+                Workinghour workinghours = new Workinghour();
+                while (x < list.WorkingHours.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.WorkingHours[x].ID, id))
                     {
-                        Suppliers = list.Suppliers[x];
+                        workinghours = list.WorkingHours[x];
                     }
                     x++;
                 }
 
-                return Suppliers;
+                return workinghours;
             }
         }
 
         [HttpPost]
-        public void Post(string supplier, string identificationCard)
+        public void Post(string name, string firstLastName, string secondLastName, string weeklyHours, string extraHours)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
-                Suppliers Suppliers = new Suppliers();
+                Workinghour workinghours = new Workinghour();
                 Random rnd = new Random();
-                Suppliers.ID = rnd.Next(0, 9999).ToString();
-                Suppliers.Supplier = supplier;
-                Suppliers.IdentificationCard = identificationCard;
-
+                workinghours.ID = rnd.Next(0, 9999).ToString();
+                workinghours.Name = name;
+                workinghours.FirstLastName = firstLastName;
+                workinghours.SecondLastName = secondLastName;
+                workinghours.WeeklyHours = weeklyHours;
+                workinghours.ExtraHours = extraHours;
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.Suppliers.Add(Suppliers);
+                list.WorkingHours.Add(workinghours);
                 string jsonNew = JsonConvert.SerializeObject(list);
                 jsonStream.Close();
                 System.IO.File.WriteAllText(url, jsonNew);
@@ -71,20 +74,22 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string supplier, string identificationCard)
+        public void Put(string id, string name, string firstLastName, string secondLastName, string weeklyHours, string extraHours)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.Suppliers.Count)
+                while (x < list.WorkingHours.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.WorkingHours[x].ID, id))
                     {
-                        list.Suppliers[x].Supplier = supplier;
-                        list.Suppliers[x].IdentificationCard = identificationCard;
-
+                        list.WorkingHours[x].Name = name;
+                        list.WorkingHours[x].FirstLastName = firstLastName;
+                        list.WorkingHours[x].SecondLastName = secondLastName;
+                        list.WorkingHours[x].WeeklyHours = weeklyHours;
+                        list.WorkingHours[x].ExtraHours = extraHours;
                     }
                     x++;
                 }
@@ -103,11 +108,11 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.Suppliers.Count)
+                while (x < list.WorkingHours.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.WorkingHours[x].ID, id))
                     {
-                        list.Suppliers.RemoveAt(x);
+                        list.WorkingHours.RemoveAt(x);
                     }
                     x++;
                 }
