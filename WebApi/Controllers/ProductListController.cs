@@ -12,58 +12,59 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    public class SuppliersController : ApiController
+    public class ProductListController : ApiController
     {
         readonly string url = "C:/Users/yenma/Downloads/II Semestre 2019/Bases de datos/WebApi/WebApi/WebApi/Data/DataBase.json";
 
         [HttpGet]
-        public List<Suppliers> Get()
+        public List<ProductList> Get()
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
-                return list.Suppliers;
+                return list.ProductLists;
             }
         }
 
         [HttpGet]
-        public Suppliers Get(string id)
+        public ProductList Get(string id)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Suppliers Suppliers = new Suppliers();
-                while (x < list.Suppliers.Count)
+                ProductList ProductLists = new ProductList();
+                while (x < list.ProductLists.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.ProductLists[x].ID, id))
                     {
-                        Suppliers = list.Suppliers[x];
+                        ProductLists = list.ProductLists[x];
                     }
                     x++;
                 }
 
-                return Suppliers;
+                return ProductLists;
             }
         }
 
         [HttpPost]
-        public void Post(string supplier, string identificationCard)
+        public void Post(string product, string costProduct, string existence)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
-                Suppliers Suppliers = new Suppliers();
+                ProductList ProductLists = new ProductList();
                 Random rnd = new Random();
-                Suppliers.ID = rnd.Next(0, 9999).ToString();
-                Suppliers.Supplier = supplier;
-                Suppliers.IdentificationCard = identificationCard;
-
+                ProductLists.ID = rnd.Next(0, 9999).ToString();
+                ProductLists.Product = product;
+                ProductLists.CostProduct = costProduct;
+                ProductLists.Existence = existence;
+                
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.Suppliers.Add(Suppliers);
+                list.ProductLists.Add(ProductLists);
                 string jsonNew = JsonConvert.SerializeObject(list);
                 jsonStream.Close();
                 System.IO.File.WriteAllText(url, jsonNew);
@@ -71,20 +72,20 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string supplier, string identificationCard)
+        public void Put(string id, string product, string costProduct, string existence)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.Suppliers.Count)
+                while (x < list.ProductLists.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.ProductLists[x].ID, id))
                     {
-                        list.Suppliers[x].Supplier = supplier;
-                        list.Suppliers[x].IdentificationCard = identificationCard;
-
+                        list.ProductLists[x].Product = product;
+                        list.ProductLists[x].CostProduct = costProduct;
+                        list.ProductLists[x].Existence = existence;
                     }
                     x++;
                 }
@@ -103,11 +104,11 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.Suppliers.Count)
+                while (x < list.ProductLists.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.ProductLists[x].ID, id))
                     {
-                        list.Suppliers.RemoveAt(x);
+                        list.ProductLists.RemoveAt(x);
                     }
                     x++;
                 }
@@ -117,5 +118,6 @@ namespace WebApi.Controllers
                 System.IO.File.WriteAllText(url, jsonNew);
             }
         }
+
     }
 }

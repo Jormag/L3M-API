@@ -9,46 +9,28 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.IO;
 using WebApi.Models;
-using System.Text;
 
 namespace WebApi.Controllers
 {
-    ///<summary>
-    ///Controlador de Compras
-    ///</summary>
     public class PurchaseController : ApiController
     {
-        readonly string url = @"https://firebasestorage.googleapis.com/v0/b/l3mwebapidatabase.appspot.com/o/DataBase.json?alt=media&token=0b842b13-c1ac-4e2b-bf5d-b084c306fc7b";
+        readonly string url = "C:/Users/yenma/Downloads/II Semestre 2019/Bases de datos/WebApi/WebApi/WebApi/Data/DataBase.json";
 
-        ///<summary>
-        ///Permite consultar la lista de compras
-        ///</summary>
         [HttpGet]
         public List<Purchase> Get()
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-
-            using (StreamReader jsonStream = new StreamReader(stream))
+            using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 return list.Purchases;
             }
         }
-        ///<summary>
-        ///Permite consultar una compra especifica
-        ///</summary>
-        ///<param name="id"> Identificador de la compra </param>
+
         [HttpGet]
         public Purchase Get(string id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-
-            using (StreamReader jsonStream = new StreamReader(stream))
+            using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
@@ -65,86 +47,35 @@ namespace WebApi.Controllers
                 return purchase;
             }
         }
-        ///<summary>
-        ///Permite agregar compras a la lista
-        ///</summary>
-        ///<param name="description"> Descripcion de la compra </param>
-        ///<param name="realDate"> Fecha real en que se realizo la compra </param>
-        ///<param name="registrationDate"> Fecha de registro de la compra</param>
-        ///<param name="supplier"> Proveedor de la compra</param>
-        ///<param name="image"> Enlace de la imagen de la compra </param>
-        ///<param name="branchOffice"> Sucursal en la que se realizo la compra </param>
+
         [HttpPost]
-        public void Post(string description, string realDate, string registrationDate, string supplier, string image, string branchOffice)
+        public void Post(string description, string realDatePurchase, string registrationDatePurchase, string provider, string image, string purchaseRegistrationBranch)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-
-            using (StreamReader jsonStream = new StreamReader(stream))
+            using (StreamReader jsonStream = File.OpenText(url))
             {
+                Purchase purchase = new Purchase();
                 Random rnd = new Random();
-                Purchase purchase = new Purchase
-                {
-
-                    ID = rnd.Next(0, 9999).ToString(),
-                    Description = description,
-                    RealDate = realDate,
-                    RegistrationDate = registrationDate,
-                    Supplier = supplier,
-                    Image = image,
-                    BranchOffice = branchOffice
-                };
+                purchase.ID = rnd.Next(0, 9999).ToString();
+                purchase.Description = description;
+                purchase.RealDatePurchase = realDatePurchase;
+                purchase.RegistrationDatePurchase = registrationDatePurchase;
+                purchase.Provider = provider;
+                purchase.PurchaseImage = image;
+                purchase.PurchaseRegistrationBranch = purchaseRegistrationBranch;
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
                 list.Purchases.Add(purchase);
-
-                //Serializar el json
-                var request2 = (HttpWebRequest)WebRequest.Create(url);
-                request2.Method = "POST";
-                request2.ContentType = "application/json";
-                request2.Timeout = 30000;
-
                 string jsonNew = JsonConvert.SerializeObject(list);
-                byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
-                request2.ContentLength = byteArray.Length;
-
-                using (var dataStream = request2.GetRequestStream())
-                {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                }
-
-                using (HttpWebResponse response3 = (HttpWebResponse)request2.GetResponse())
-                {
-                    using (Stream stream2 = response3.GetResponseStream())
-                    {
-                        using (StreamReader reader = new StreamReader(stream2))
-                        {
-                            string responseFromServer = reader.ReadToEnd();
-                        }
-                    }
-                }
+                jsonStream.Close();
+                System.IO.File.WriteAllText(url, jsonNew);
             }
         }
-        ///<summary>
-        ///Permite modificar compras de la lista
-        ///</summary>
-        ///<param name="id"> Identificador de la compra </param>
-        ///<param name="description"> Descripcion de la compra </param>
-        ///<param name="realDate"> Fecha real en que se realizo la compra </param>
-        ///<param name="registrationDate"> Fecha de registro de la compra</param>
-        ///<param name="supplier"> Proveedor de la compra</param>
-        ///<param name="image"> Enlace de la imagen de la compra </param>
-        ///<param name="branchOffice"> Sucursal en la que se realizo la compra </param>
-        [HttpPut]
-        public void Put(string id, string description, string realDate, string registrationDate, string supplier, string image, string branchOffice)
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
 
-            using (StreamReader jsonStream = new StreamReader(stream))
+        [HttpPut]
+        public void Put(string id, string description, string realDatePurchase, string registrationDatePurchase, string provider, string image, string purchaseRegistrationBranch)
+        {
+            using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
@@ -154,54 +85,25 @@ namespace WebApi.Controllers
                     if (string.Equals(list.Purchases[x].ID, id))
                     {
                         list.Purchases[x].Description = description;
-                        list.Purchases[x].RealDate = realDate;
-                        list.Purchases[x].RegistrationDate = registrationDate;
-                        list.Purchases[x].Supplier = supplier;
-                        list.Purchases[x].Image = image;
-                        list.Purchases[x].BranchOffice = branchOffice;
+                        list.Purchases[x].RealDatePurchase = realDatePurchase;
+                        list.Purchases[x].RegistrationDatePurchase = registrationDatePurchase;
+                        list.Purchases[x].Provider = provider;
+                        list.Purchases[x].PurchaseImage = image;
+                        list.Purchases[x].PurchaseRegistrationBranch = purchaseRegistrationBranch;
                     }
                     x++;
                 }
 
-                //Serializar el json
-                var request2 = (HttpWebRequest)WebRequest.Create(url);
-                request2.Method = "POST";
-                request2.ContentType = "application/json";
-                request2.Timeout = 30000;
-
                 string jsonNew = JsonConvert.SerializeObject(list);
-                byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
-                request2.ContentLength = byteArray.Length;
-
-                using (var dataStream = request2.GetRequestStream())
-                {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                }
-
-                using (HttpWebResponse response3 = (HttpWebResponse)request2.GetResponse())
-                {
-                    using (Stream stream2 = response3.GetResponseStream())
-                    {
-                        using (StreamReader reader = new StreamReader(stream2))
-                        {
-                            string responseFromServer = reader.ReadToEnd();
-                        }
-                    }
-                }
+                jsonStream.Close();
+                System.IO.File.WriteAllText(url, jsonNew);
             }
         }
-        ///<summary>
-        ///Permite eliminar compras de la lista
-        ///</summary>
-        ///<param name="id"> Identificador de la compra </param>
+
         [HttpDelete]
         public void Delete(string id)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
-            using (Stream stream = response.GetResponseStream())
-
-            using (StreamReader jsonStream = new StreamReader(stream))
+            using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
@@ -215,31 +117,9 @@ namespace WebApi.Controllers
                     x++;
                 }
 
-                //Serializar el json
-                var request2 = (HttpWebRequest)WebRequest.Create(url);
-                request2.Method = "POST";
-                request2.ContentType = "application/json";
-                request2.Timeout = 30000;
-
                 string jsonNew = JsonConvert.SerializeObject(list);
-                byte[] byteArray = Encoding.UTF8.GetBytes(jsonNew);
-                request2.ContentLength = byteArray.Length;
-
-                using (var dataStream = request2.GetRequestStream())
-                {
-                    dataStream.Write(byteArray, 0, byteArray.Length);
-                }
-
-                using (HttpWebResponse response3 = (HttpWebResponse)request2.GetResponse())
-                {
-                    using (Stream stream2 = response3.GetResponseStream())
-                    {
-                        using (StreamReader reader = new StreamReader(stream2))
-                        {
-                            string responseFromServer = reader.ReadToEnd();
-                        }
-                    }
-                }
+                jsonStream.Close();
+                System.IO.File.WriteAllText(url, jsonNew);
             }
         }
     }

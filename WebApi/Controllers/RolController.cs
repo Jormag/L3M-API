@@ -12,58 +12,59 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    public class SuppliersController : ApiController
+    public class RolController : ApiController
     {
         readonly string url = "C:/Users/yenma/Downloads/II Semestre 2019/Bases de datos/WebApi/WebApi/WebApi/Data/DataBase.json";
 
         [HttpGet]
-        public List<Suppliers> Get()
+        public List<WorkRol> Get()
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
-                return list.Suppliers;
+                return list.WorkRoles;
             }
         }
 
         [HttpGet]
-        public Suppliers Get(string id)
+        public WorkRol Get(string id)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                Suppliers Suppliers = new Suppliers();
-                while (x < list.Suppliers.Count)
+                WorkRol workrol = new WorkRol();
+                while (x < list.WorkRoles.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.WorkRoles[x].ID, id))
                     {
-                        Suppliers = list.Suppliers[x];
+                        workrol = list.WorkRoles[x];
                     }
                     x++;
                 }
 
-                return Suppliers;
+                return workrol;
             }
         }
 
         [HttpPost]
-        public void Post(string supplier, string identificationCard)
+        public void Post(string name, string firstLastName, string secondLastName, string rol)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
-                Suppliers Suppliers = new Suppliers();
+                WorkRol purchase = new WorkRol();
                 Random rnd = new Random();
-                Suppliers.ID = rnd.Next(0, 9999).ToString();
-                Suppliers.Supplier = supplier;
-                Suppliers.IdentificationCard = identificationCard;
-
+                purchase.ID = rnd.Next(0, 9999).ToString();
+                purchase.Name = name;
+                purchase.FirstLastName = firstLastName;
+                purchase.SecondLastName = secondLastName;
+                purchase.Rol = rol;
 
                 var jsonOld = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(jsonOld);
-                list.Suppliers.Add(Suppliers);
+                list.WorkRoles.Add(purchase);
                 string jsonNew = JsonConvert.SerializeObject(list);
                 jsonStream.Close();
                 System.IO.File.WriteAllText(url, jsonNew);
@@ -71,20 +72,21 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        public void Put(string id, string supplier, string identificationCard)
+        public void Put(string id, string name, string firstLastName, string secondLastName, string rol)
         {
             using (StreamReader jsonStream = File.OpenText(url))
             {
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.Suppliers.Count)
+                while (x < list.WorkRoles.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.WorkRoles[x].ID, id))
                     {
-                        list.Suppliers[x].Supplier = supplier;
-                        list.Suppliers[x].IdentificationCard = identificationCard;
-
+                        list.WorkRoles[x].Name = name;
+                        list.WorkRoles[x].FirstLastName = firstLastName;
+                        list.WorkRoles[x].SecondLastName = secondLastName;
+                        list.WorkRoles[x].Rol = rol;
                     }
                     x++;
                 }
@@ -103,11 +105,11 @@ namespace WebApi.Controllers
                 var json = jsonStream.ReadToEnd();
                 DataBaseStruct list = JsonConvert.DeserializeObject<DataBaseStruct>(json);
                 int x = 0;
-                while (x < list.Suppliers.Count)
+                while (x < list.WorkRoles.Count)
                 {
-                    if (string.Equals(list.Suppliers[x].ID, id))
+                    if (string.Equals(list.WorkRoles[x].ID, id))
                     {
-                        list.Suppliers.RemoveAt(x);
+                        list.WorkRoles.RemoveAt(x);
                     }
                     x++;
                 }
